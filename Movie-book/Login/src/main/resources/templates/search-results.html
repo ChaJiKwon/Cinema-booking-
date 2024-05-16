@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Search Results</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: black;
+            color: #333;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            max-width: 80%;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        h2 {
+            color: #007bff;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .search-results {
+            color: #007bff;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .movie-list {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        .movie-item {
+            margin-bottom: 20px;
+            padding: 20px;
+            background-color: #f5f5f5;
+            border-radius: 5px;
+            display: flex;
+        }
+
+        .movie-poster {
+            max-width: 50%;
+            height: auto;
+            border-radius: 5px;
+        }
+        .detail-container{
+            margin-left: 7%;
+            color: black;
+            
+        }
+        .header {
+            background-color: #FF955A;
+            padding: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .header h1 {
+            margin: 0;
+        }
+        .nav-container{
+            width: 7%;
+            height: 100%;
+        }
+        .nav-container :hover{
+            background-color: #ff5900;
+            color: white;
+            text-decoration: none;
+        }
+
+        a {
+            color: white; /* Set the color for all links */
+            text-decoration: none; /* Remove underline */
+        }
+
+        .navbar-link {
+            color: white;
+            text-decoration: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            transition: background-color 0.3s ease;
+        }
+
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1 class="text-white">Movies of [[${category}]] </h1>
+        <h1 class="text-white" style="font-weight: bolder;">Welcome, [[${user.getFullname()}]]</h1>
+        <span sec:authorize="isAuthenticated" class="nav-container">
+                <a th:href="@{/logout} " class="navbar-link" >Logout</a>
+        </span>
+        <div class="nav-container">
+            <a th:href="@{/user-page}" class="navbar-link">Home</a>
+        </div>
+        <div class="nav-container">
+            <a th:href="@{/allTheaters}" class="navbar-link">Theaters</a>
+        </div>
+        <div class="nav-container" >
+            <a th:href="@{/showAllCategory}" class="navbar-link">Movies</a>
+        </div>
+        </div>
+    <div class="container">
+    <h1 class="search-results">Search Results</h1>
+
+    <div th:if="${movies.empty}">
+        <p>No movies found.</p>
+    </div>
+    <div class="container" th:unless="${movies.empty}">
+        <ul class="movie-list">
+            <li th:each="movie : ${movies}" >
+                <a th:href="@{'/movie-description/' + ${movie.id}}" class="movie-item" >
+                    <img th:src="${movie.posterUrl}" alt="Movie Poster" class="movie-poster">
+                    <div class="detail-container">
+                        <Strong>Name:</Strong><p th:text=" ${movie.movieName}"></p>
+                        <Strong>Genre:</Strong><p th:text="' ' + ${movie.genre}"></p>
+                        <Strong>Cast:</Strong><p th:text="' ' + ${movie.cast}"></p>
+                        <Strong>Duration:</Strong><p th:text="' ' + ${movie.duration}"></p>
+                        <Strong>Rate: </Strong><p th:text="'' + ${movie.rate}"></p>
+                        <Strong>Description:</Strong><p th:text="' ' + ${movie.description}"></p>
+                        <Strong>Cost:</Strong><p th:text="' ' + ${movie.baseCost}"></p>
+    
+    
+                        <!-- Add more movie details here as needed -->
+                    </div>
+                </a>
+                
+            </li>
+        </ul>
+    </div>
+</body>
+</html>
+

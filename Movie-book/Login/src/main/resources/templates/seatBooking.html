@@ -1,0 +1,138 @@
+
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Seat Booking</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+</head>
+<body>
+<div class="container">
+    <h1 class="text-center my-4"><i class="fas fa-film"></i> Seat Booking <i class="fas fa-ticket-alt"></i></h1>
+    <div class="text-center mb-4">
+        <img src="https://via.placeholder.com/600x300?text=Theater+Screen" alt="Theater Screen" class="img-fluid">
+    </div>
+    <div class="row">
+        <!-- Section A -->
+        <div class="col-md-4">
+            <h2><i class="fas fa-chair"></i> Section A</h2>
+            <div class="row">
+                <div class="col-3"><button class="btn btn-success seat-btn" data-seat="A11" data-section="A"><i class="fas fa-chair"></i> A11</button></div>
+                <div class="col-3"><button class="btn btn-success seat-btn" data-seat="A21" data-section="A"><i class="fas fa-chair"></i> A21</button></div>
+                <div class="col-3"><button class="btn btn-success seat-btn" data-seat="A31" data-section="A"><i class="fas fa-chair"></i> A31</button></div>
+            </div>
+            <div class="row">
+                <div class="col-3"><button class="btn btn-success seat-btn" data-seat="A12" data-section="A"><i class="fas fa-chair"></i> A12</button></div>
+                <div class="col-3"><button class="btn btn-success seat-btn" data-seat="A22" data-section="A"><i class="fas fa-chair"></i> A22</button></div>
+                <div class="col-3"><button class="btn btn-success seat-btn" data-seat="A32" data-section="A"><i class="fas fa-chair"></i> A32</button></div>
+            </div>
+            <div class="row">
+                <div class="col-3"><button class="btn btn-success seat-btn" data-seat="A13" data-section="A"><i class="fas fa-chair"></i> A13</button></div>
+                <div class="col-3"><button class="btn btn-success seat-btn" data-seat="A23" data-section="A"><i class="fas fa-chair"></i> A23</button></div>
+                <div class="col-3"><button class="btn btn-success seat-btn" data-seat="A33" data-section="A"><i class="fas fa-chair"></i> A33</button></div>
+            </div>
+            <div class="row">
+                <div class="col-3"><button class="btn btn-success seat-btn" data-seat="A14" data-section="A"><i class="fas fa-chair"></i> A14</button></div>
+                <div class="col-3"><button class="btn btn-success seat-btn" data-seat="A24" data-section="A"><i class="fas fa-chair"></i> A24</button></div>
+                <div class="col-3"><button class="btn btn-success seat-btn" data-seat="A34" data-section="A"><i class="fas fa-chair"></i> A34</button></div>
+            </div>
+            <div class="row">
+                <div class="col-3"><button class="btn btn-success seat-btn" data-seat="A15" data-section="A"><i class="fas fa-chair"></i> A15</button></div>
+                <div class="col-3"><button class="btn btn-success seat-btn" data-seat="A25" data-section="A"><i class="fas fa-chair"></i> A25</button></div>
+                <div class="col-3"><button class="btn btn-success seat-btn" data-seat="A35" data-section="A"><i class="fas fa-chair"></i> A35</button></div>
+            </div>
+        </div>
+        <!-- Section VIP -->
+        <div class="col-md-4">
+            <h2><i class="fas fa-crown"></i> Section VIP</h2>
+            <div class="row">
+                <div class="col-3"><button class="btn btn-danger seat-btn" data-seat="VIP11" data-section="VIP"><i class="fas fa-couch"></i> VIP11</button></div>
+                <div class="col-3"><button class="btn btn-danger seat-btn" data-seat="VIP21" data-section="VIP"><i class="fas fa-couch"></i> VIP21</button></div>
+                <div class="col-3"><button class="btn btn-danger seat-btn" data-seat="VIP31" data-section="VIP"><i class="fas fa-couch"></i> VIP31</button></div>
+            </div>
+            <div class="row">
+                <div class="col-3"><button class="btn btn-danger seat-btn" data-seat="VIP12" data-section="VIP"><i class="fas fa-couch"></i> VIP12</button></div>
+                <div class="col-3"><button class="btn btn-danger seat-btn" data-seat="VIP22" data-section="VIP"><i class="fas fa-couch"></i> VIP22</button></div>
+                <div class="col-3"><button class="btn btn-danger seat-btn" data-seat="VIP32" data-section="VIP"><i class="fas fa-couch"></i> VIP32</button></div>
+            </div>
+            <div class="row">
+                <div class="col-3"><button class="btn btn-danger seat-btn" data-seat="VIP13" data-section="VIP"><i class="fas fa-couch"></i> VIP13</button></div>
+                <div class="col-3"><button class="btn btn-danger seat-btn" data-seat="VIP23" data-section="VIP"><i class="fas fa-couch"></i> VIP23</button></div>
+                <div class="col-3"><button class="btn btn-danger seat-btn" data-seat="VIP33" data-section="VIP"><i class="fas fa-couch"></i> VIP33</button></div>
+            </div>
+            <div class="row">
+                <div class="col-3"><button class="btn btn-danger seat-btn" data-seat="VIP14" data-section="VIP"><i class="fas fa-couch"></i> VIP14</button></div>
+                <div class="col-3"><button class="btn btn-danger seat-btn" data-seat="VIP24" data-section="VIP"><i class="fas fa-couch"></i> VIP24</button></div>
+                <div class="col-3"><button class="btn btn-danger seat-btn" data-seat="VIP34" data-section="VIP"><i class="fas fa-couch"></i> VIP34</button></div>
+            </div>
+            <div class="row">
+                <div class="col-3"><button class="btn btn-danger seat-btn" data-seat="VIP15" data-section="VIP"><i class="fas fa-couch"></i> VIP15</button></div>
+                <div class="col-3"><button class="btn btn-danger seat-btn" data-seat="VIP25" data-section="VIP"><i class="fas fa-couch"></i> VIP25</button></div>
+                <div class="col-3"><button class="btn btn-danger seat-btn" data-seat="VIP35" data-section="VIP"><i class="fas fa-couch"></i> VIP35</button></div>
+            </div>
+        </div>
+        <!-- Section B -->
+        <div class="col-md-4">
+            <h2><i class="fas fa-chair"></i> Section B</h2>
+            <div class="row">
+                <div class="col-3"><button class="btn btn-warning seat-btn" data-seat="B11" data-section="B"><i class="fas fa-couch"></i> B11</button></div>
+                <div class="col-3"><button class="btn btn-warning seat-btn" data-seat="B21" data-section="B"><i class="fas fa-couch"></i> B21</button></div>
+                <div class="col-3"><button class="btn btn-warning seat-btn" data-seat="B31" data-section="B"><i class="fas fa-couch"></i> B31</button></div>
+            </div>
+            <div class="row">
+                <div class="col-3"><button class="btn btn-warning seat-btn" data-seat="B12" data-section="B"><i class="fas fa-couch"></i> B12</button></div>
+                <div class="col-3"><button class="btn btn-warning seat-btn" data-seat="B22" data-section="B"><i class="fas fa-couch"></i> B22</button></div>
+                <div class="col-3"><button class="btn btn-warning seat-btn" data-seat="B32" data-section="B"><i class="fas fa-couch"></i> B32</button></div>
+            </div>
+            <div class="row">
+                <div class="col-3"><button class="btn btn-warning seat-btn" data-seat="B13" data-section="B"><i class="fas fa-couch"></i> B13</button></div>
+                <div class="col-3"><button class="btn btn-warning seat-btn" data-seat="B23" data-section="B"><i class="fas fa-couch"></i> B23</button></div>
+                <div class="col-3"><button class="btn btn-warning seat-btn" data-seat="B33" data-section="B"><i class="fas fa-couch"></i> B33</button></div>
+            </div>
+            <div class="row">
+                <div class="col-3"><button class="btn btn-warning seat-btn" data-seat="B14" data-section="B"><i class="fas fa-couch"></i> B14</button></div>
+                <div class="col-3"><button class="btn btn-warning seat-btn" data-seat="B24" data-section="B"><i class="fas fa-couch"></i> B24</button></div>
+                <div class="col-3"><button class="btn btn-warning seat-btn" data-seat="B34" data-section="B"><i class="fas fa-couch"></i> B34</button></div>
+            </div>
+            <div class="row">
+                <div class="col-3"><button class="btn btn-warning seat-btn" data-seat="B15" data-section="B"><i class="fas fa-couch"></i> B15</button></div>
+                <div class="col-3"><button class="btn btn-warning seat-btn" data-seat="B25" data-section="B"><i class="fas fa-couch"></i> B25</button></div>
+                <div class="col-3"><button class="btn btn-warning seat-btn" data-seat="B35" data-section="B"><i class="fas fa-couch"></i> B35</button></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Toast -->
+<div aria-live="polite" aria-atomic="true" style="position: relative;">
+    <div id="seatToast" class="toast" style="position: absolute; top: 20px; right: 20px;" data-delay="2000">
+        <div class="toast-header">
+            <strong class="mr-auto">Booking Status</strong>
+            <button type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        <div class="toast-body">
+
+        </div>
+    </div>
+    <a th:href="@{'/movie-description/' + ${movie.id} + '/bookTheater/' + ${theater.id} + '/userShowTime/bookSeat/ticketSelection'}">
+        <button>Click here to Book</button>
+    </a>
+</div>
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+<script>
+    $(document).ready(function(){
+      $('.seat-btn').click(function(){
+        var seat = $(this).data('seat');
+        var section = $(this).data('section');
+        $('#seatToast .toast-body').text('Seat ' + seat + ' in Section ' + section + ' booked successfully!');
+        $('#seatToast').toast('show');
+      });
+    });
+</script>
+</body>
+</html>

@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>THEATERS</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/webjars/bootstrap/css/bootstrap.min.css}" />
+    <style>
+        .thead-dark th {
+            background-color: #FBD0B8; /* Dark background */
+            color: black;
+            font-family: Verdana, Geneva, Tahoma, sans-serif;
+        }
+        .table {
+            width: 100%;
+            margin-bottom: 1rem;
+            color: #212529;
+            align-items: center;
+        }
+
+        .table td {
+            padding: 0.75rem;
+            vertical-align: top;
+            border-top: 1px solid #dee2e6;
+        }
+        .table thead th {
+            vertical-align: bottom;
+            border-bottom: 2px solid #dee2e6;
+        }
+        .table-bordered {
+            border: 1px solid #dee2e6;
+        }
+
+        .table-bordered td {
+            border: 1px solid #dee2e6;
+        }
+        .header {
+            background-color: #FF955A;
+            padding: 20px;
+            max-width: 100%;
+            align-items: center;
+            justify-content: space-between;
+            flex-direction: row;
+            display: flex;
+        }
+        .header h1 {
+            margin: 0;
+        }
+        a {
+            color: white;
+            text-decoration: none;
+        }
+        body {
+            font-family: Arial, sans-serif;
+            background-color: black;
+            color: white;
+            margin: 0;
+            padding: 0;
+        }
+        table {
+            background-color: white;
+        }
+        .delete-container {
+            width: 70px;
+            font-size: 13px;
+            height: 35px;
+            font-family: Verdana, Geneva, Tahoma, sans-serif;
+            background-color: #FF1212;
+            color: white;
+            line-height: 35px;
+            text-align: center;
+            border-radius: 10px;
+        }
+        .edit {
+            width: 70px;
+            height: 35px;
+            background-color: #44A5FF;
+            font-size: 13px;
+            line-height: 35px;
+            text-align: center;
+            color: white;
+            font-family: Verdana, Geneva, Tahoma, sans-serif;
+            border-radius: 10px;
+            margin-left: 10px;
+        }
+        .new-theater {
+            border-radius: 10px;
+            width: 10%;
+            height: 51px;
+            background-color: #44A5FF;
+            color: white;
+            text-align: center;
+            font-family: Verdana, Geneva, Tahoma, sans-serif;
+            line-height: 51px;
+        }
+        .button-container {
+            justify-content: center;
+            flex-direction: row;
+            display: flex;
+        }
+        .edit:hover {
+            opacity: 0.65;
+        }
+        .delete-container:hover {
+            opacity: 0.65;
+        }
+        .new-theater:hover {
+            opacity: 0.65;
+        }
+    </style>
+
+</head>
+<header class="header">
+    <h1>ShowTime List</h1>
+    <h1>Admin</h1>
+    <a th:href="@{/admin-page}">Home page</a>
+</header>
+<body>
+<h1 style="padding-left: 15%;">Dashboard</h1>
+<div>
+    <table class="table table-bordered">
+        <thead class="thead-dark">
+        <tr>
+            <th>ID</th>
+            <th>Date Time</th>
+            <th>Theater</th>
+            <th>Actions</th>
+        </tr>
+        </thead>
+        <tbody>
+        <th:block th:each="showTime : ${listShowTimes}">
+            <tr>
+                <td>[[${showTime.id}]]</td>
+                <td>[[${showTime.showDateTime}]]</td>
+                <td>[[${showTime.theater}]]</td>
+                <td>
+                    <a th:href="@{'/showTimes/delete/' + ${showTime.id}}">
+                        <div class="delete-container">
+                            Delete
+                        </div>
+                    </a>
+
+                </td>
+            </tr>
+        </th:block>
+        </tbody>
+    </table>
+    <a class="h3" th:href="@{/showTimes/new}">
+        <div class="button-container">
+            <div class="new-theater">
+                New ShowTime
+            </div>
+        </div>
+    </a>
+</div>
+
+</body>
+</html>

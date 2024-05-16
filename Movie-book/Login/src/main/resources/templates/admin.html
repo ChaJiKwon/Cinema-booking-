@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ADMIN</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: black;
+            color: white;
+            margin: 0;
+            padding: 0;
+        }
+
+        .header {
+            background-color: #FF955A;
+            padding: 20px;
+            align-items: center;
+            justify-content: space-between;
+            flex-direction: row;
+            display: flex;
+
+        }
+
+        .header h1 {
+            margin: 0;
+        }
+        .container:hover {
+            opacity: 0.65; /* reduce opacity on hover */
+        }
+        .container {
+            margin: 20px auto;
+            padding: 20px;
+            background-color: black;
+            border-radius: 5px;
+            box-shadow: 0 0 10px #ccc;
+            flex-direction: row;
+            display: flex;
+        }
+        .outer-container{
+            flex-direction: row;
+            display: flex;
+        }
+
+        h2 {
+            color: white;
+            text-align: center;
+        }
+        a {
+            color: white; /* Set the color for all links */
+            text-decoration: none; /* Remove underline */
+        }
+
+    </style>
+</head>
+<body>
+<div class="header">
+    <h1>Dashboard</h1>
+    <div>
+        <h2>Welcome, [[${user.getFullname()}]]</h2>
+        <span sec:authorize="isAuthenticated" >
+        <a th:href="@{/logout}" class="logoutText">
+            Logout
+        </a>
+        </span>
+    </div>
+</div>
+
+<div class="outer-container">
+    <!-- Image with a link -->
+    <div class="container">
+        <a th:href="@{/theaters}">
+            <img src="https://media.wired.com/photos/5e97905fa8fb770008c8478d/16:9/w_2400,h_1350,c_limit/Cul-movietheater-1191021389.jpg"
+                 width="350px"
+                 height="250px"
+                 alt="">
+            <h2>Theaters</h2>
+
+        </a>
+    </div>
+
+    <div class="container">
+        <a th:href="@{/movies}">
+            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQFnsqqfBgIXgaiD3Bi5HPqSjd-jho_SbXvsk7WnYQxmQ&s"
+                 width="350px"
+                 height="250px"
+                 alt="">
+            <h2>Movies</h2>
+        </a>
+    </div>
+
+    <div class="container">
+        <a th:href="@{/showTimes}">
+            <img src="https://i.ytimg.com/vi/tAXew1iKCnw/maxresdefault.jpg"
+                 width="350px"
+                 height="250px"
+                 alt="">
+            <h2>ShowTime</h2>
+        </a>
+    </div>
+
+
+
+</div>
+</body>
+</html>

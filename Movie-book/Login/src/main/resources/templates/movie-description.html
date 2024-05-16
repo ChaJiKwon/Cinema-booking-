@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html" xmlns:sec="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-16">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        .container {
+            max-width: 50%;
+            height: 800px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: whitesmoke;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgb(10, 10, 10);
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background-color: black;
+            color: white;
+            margin: 0;
+            padding: 0;
+        }
+        a {
+            color: white; /* Set the color for all links */
+            text-decoration: none; /* Remove underline */
+        }
+        img {
+            max-width: 1000px;
+            height: 300px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+            display: block;
+            margin-left: auto;
+            margin-right: auto;
+            width: 50%;
+        }
+        .navbar-link {
+            color: white;
+            text-decoration: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            transition: background-color 0.3s ease;
+        }
+        .movie-description {
+            font-family: Arial;
+            text-align: center;
+            color: black;
+            font-size: 40px;
+            font-style: italic;
+        }
+
+        .movie-details {
+            color: black;
+            font-size: 15px;
+        }
+
+        .text-des {
+            font-style: inherit;
+            color: black;
+        }
+
+        .header {
+            background-color: #FF955A;
+            padding: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .header h1 {
+            margin: 0;
+        }
+
+        .text-white {
+            font-size: 30px;
+        }
+        .nav-container{
+            width: 7%;
+            height: 100%;
+        }
+        .nav-container :hover{
+            background-color: #ff5900;
+            color: white;
+            text-decoration: none;
+        }
+
+    </style>
+    <title>Movie Description</title>
+</head>
+<body>
+<div class="header">
+    <h1 class="text-white"><strong>Movie's Description</strong> </h1>
+    <h2 class="text-white" style="font-weight: bolder;">Welcome, [[${user.getFullname()}]]</h2>
+    <span sec:authorize="isAuthenticated" class="nav-container">
+        <a th:href="@{/logout} " class="navbar-link" >Logout</a>
+    </span>
+    <div class="nav-container">
+        <a th:href="@{/user-page}" class="navbar-link">Home</a>
+    </div>
+    <div class="nav-container">
+        <a th:href="@{/allTheaters}" class="navbar-link">Theaters</a>
+    </div>
+
+    <div class="nav-container">
+        <a th:href="@{/showAllCategory}" class="navbar-link">Movies</a>
+    </div>
+</div>
+<div class="container">
+    <h2 class="movie-description"><strong> [[${movie.movieName}]]</strong></h2>
+    <div class="movie-details">
+
+        <div>
+            <img th:src="${movie.posterUrl}" alt="Movie Image">
+        </div>
+        <div>
+            <p class="text-des"><strong>Genre:</strong> <span style="font-weight: lighter;font-size: 13px;font-style: italic" th:text="${movie.genre}"></span></p>
+            <p class="text-des"><strong>Cast:</strong> <span style="font-weight: lighter;font-size: 13px;font-style: italic" th:text="${movie.cast}"></span></p>
+            <p class="text-des"><strong>Duration:</strong> <span style="font-weight: lighter;font-size: 13px;font-style: italic" th:text="${movie.duration}"></span></p>
+            <p class="text-des"><strong>Rate:</strong> <span style="font-weight: lighter;font-size: 13px;font-style: italic" th:text="${movie.rate}"></span></p>
+            <p class="text-des"><strong>Description:</strong> <span style="font-weight: lighter;font-size: 13px;font-style: italic" th:text="${movie.description}"></span></p>
+            <!-- Add more movie details as needed -->
+        </div>
+        <a th:href="@{/movie-description/{id}/bookTheater(id=${movie.id})}" class="btn btn-primary">Book ticket</a>
+    </div>
+</div>
+</body>
+</html>

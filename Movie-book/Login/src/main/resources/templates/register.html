@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html  xmlns:th="http://www.thymeleaf.org" lang="en" >
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registration Form</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        /* Optional: Add custom styles here */
+        .container {
+            max-width: 500px;
+            height: 500px;
+            margin-top: 70px;
+            border-radius: 7px;
+            box-shadow: 0 0 10px 10px #525151; /* Spread the shadow evenly */
+            background-color:white; /* Adjust the opacity as needed */
+            justify-content: center;
+            align-items: center;
+        }
+        .register-container{
+            padding-top: 13%;
+               
+        }
+        body{
+            background-image: url('https://maychieuphim.vn/files/assets/kich_thuoc_man_chieu_phim_gala.png');
+            background-size: cover;
+        }
+        
+    </style>
+</head>
+<body>
+<div class="container">
+    <div class="register-container">
+        <div class="message" th:if="${message != null}">
+            [[${message}]]
+        </div>
+        <h2>Registration Form</h2>
+        <form th:action="@{/registration}" method="post" role="form" th:object="${user}">
+            <div class="form-group">
+                <label for="fullname">Fullname:</label>
+                <input th:field="*{fullname}" type="text" id="fullname" name="fullname" class="form-control" placeholder="Enter your fullname" required>
+            </div>
+    
+            <div class="form-group">
+                <label for="email">Email:</label>
+                <input th:field="*{email}" type="email" id="email" name="email" class="form-control" placeholder="Enter your email" required>
+            </div>
+    
+            <div class="form-group">
+                <label for="password">Password:</label>
+                <input th:field="*{password}" type="password" id="password" name="password" class="form-control" placeholder="Enter your password" required>
+            </div>
+            <input type="submit" value="Register" class="btn btn-primary">
+        </form>
+    </div>
+    <div class="mt-3">
+        <p class="mb-0">Already have an account? <a href="/login">Login</a></p>
+    </div>
+</div>
+</body>
+</html>

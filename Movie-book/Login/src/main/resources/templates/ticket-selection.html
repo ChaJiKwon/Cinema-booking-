@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Select Number of Tickets</title>
+</head>
+<body>
+<h1>Choose Number of Tickets</h1>
+<h2>Base Cost: [[${movie.baseCost}]]</h2>
+<form th:action="@{'/movie-description/' +${movieId}+ '/bookTheater/' +${theaterId} +'/userShowTime/bookSeat/ticketSelection/ticketConfirm'}">
+    <label for="numTickets">Number of Tickets:</label>
+    <input type="number" id="numTickets" name="numTickets" min="1" value="1">
+    <input type="hidden" id="movieId" name="movieId" value="{{ movie.id }}">
+    <br>
+    <button type="submit">Submit</button>
+</form>
+</body>
+</html>

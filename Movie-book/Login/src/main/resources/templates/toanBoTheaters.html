@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>All Theaters</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: black;
+            color: #333;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            max-width: 80%;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        h2 {
+            color: #007bff;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .theater-card {
+            margin-bottom: 40px;
+            padding: 20px;
+            background-color: #f5f5f5;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .theater-image {
+            max-width: 40%;
+            height: auto;
+            border-radius: 10px;
+        }
+
+        .theater-details {
+            flex-grow: 1;
+            text-align: center;
+        }
+
+        .theater-details h3 {
+            margin-top: 0;
+        }
+        .nav-container{
+            width: 7%;
+            height: 100%;
+        }
+        .nav-container :hover{
+            background-color: #ff5900;
+            color: white;
+            text-decoration: none;
+        }
+        .header {
+            background-color: #FF955A;
+            padding: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        .navbar-link {
+            color: white;
+            text-decoration: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            transition: background-color 0.3s ease;
+        }
+        .header h1 {
+            margin: 0;
+        }
+        a {
+            color: white; /* Set the color for all links */
+            text-decoration: none; /* Remove underline */
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1 class="text-white"> Theaters</h1>
+        <h1 class="text-white" style="font-weight: bolder;">Welcome, [[${user.getFullname()}]]</h1>
+        <span sec:authorize="isAuthenticated" class="nav-container">
+            <a th:href="@{/logout} " class="navbar-link" >Logout</a>
+        </span>
+        <div class="nav-container">
+            <a th:href="@{/user-page}" class="navbar-link">Home</a>
+        </div>
+        <div class="nav-container">
+            <a th:href="@{/allTheaters}" class="navbar-link">Theaters</a>
+        </div>
+        <div class="nav-container" >
+            <a th:href="@{/showAllCategory}" class="navbar-link">Movies</a>
+        </div>
+    </div>
+<div class="container">
+    <h2>All Theaters</h2>
+    <div th:each="theater : ${listTheaters}" class="theater-card">
+        <div>
+            <a th:href="@{'/theaterDetail?id=' + ${theater.id}}">
+                <img th:src="${theater.imageUrl}" alt="Theater Image" class="theater-image">
+            </a>
+            <h3 class="text-center" th:text="${theater.theaterName}"></h3>
+        </div>
+    </div>
+</div>
+
+<!-- Bootstrap JS and jQuery (required for Bootstrap's JS plugins) -->
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>
