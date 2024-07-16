@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" th:href="@{/webjars/bootstrap/css/bootstrap.min.css}" />
+    <link rel="stylesheet" href="/css/auditorium.css">
+    <title>Auditorium</title>
+</head>
+<header class="header">
+    <h1>Seats List</h1>
+    <h1>Admin </h1>
+    <a th:href="@{/admin-page}">HomePage</a>
+</header>
+<body>
+        <h1 style="padding-left: 15%;">Dashboard</h1>
+        <div>
+            <table class="table table-bordered">
+                <thead class="thead-dark">
+                <tr>
+                    <th>ID</th>
+                    <th>Name</th>
+                    <th>Total seats</th>
+                    <th>Theater</th>    
+                </tr>
+                </thead>
+                <tbody>
+                <th:block th:each="auditorium : ${auditoriums}">
+                    <tr>
+                        <td>[[${auditorium.auditorium_id}]]</td>
+                        <td>[[${auditorium.name}]]</td>
+                        <td>[[${auditorium.getSeats().size()}]]</td>
+                        <td>[[${auditorium.theater}]]</td>
+                        <td style="display: flex; justify-content: space-between;">
+                            <a class="h4 mr-3" th:href="@{'/auditorium/edit/' + ${auditorium.auditorium_id}}">
+                                <div class="edit">
+                                    Edit             
+                                </div>
+                            </a>
+    
+                            <a class="h4" th:href="@{'/auditorium/delete/' + ${auditorium.auditorium_id}}">
+                                <div class="delete-container">
+                                    Delete
+                                </div>
+                            </a>
+                        </td>
+                    </tr>
+                </th:block>
+                </tbody>
+            </table>
+            <a class="h3" th:href="@{/auditorium/form}">
+                <div class="button-container">
+                    <div class="new-theater" >
+                        New Auditorium
+                    </div>
+    
+                </div>
+            </a>
+        </div>
+</body>
+</html>

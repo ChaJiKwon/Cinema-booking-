@@ -1,0 +1,32 @@
+
+.btn-group {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    margin-bottom: 2%;
+}
+.row {
+    
+    display: flex;
+    justify-content: center;
+}
+.row .btn {
+    margin: 5px;
+    text-align: center;
+    white-space: nowrap; /* Ensure the text doesn't wrap */
+}
+.submit{
+    margin-left: 45%;
+    margin-top: 2%;
+  
+}
+.hidden-checkbox {
+    display: none;
+}
+.btn-green {
+    background-color: green;
+    border-color: green;
+    color: white;
+}
+
+

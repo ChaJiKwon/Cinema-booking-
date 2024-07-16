@@ -1,23 +1,25 @@
 package com.example.se2Assignment.controller;
 
-import com.example.se2Assignment.model.Movie;
-import com.example.se2Assignment.model.ShowTime;
-import com.example.se2Assignment.model.Theater;
+import com.example.se2Assignment.model.*;
 import com.example.se2Assignment.service.*;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.JsonMappingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import jakarta.servlet.http.HttpSession;
 import org.aspectj.lang.annotation.RequiredTypes;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-import java.util.Set;
+
+import java.time.format.DateTimeFormatter;
+import java.util.*;
 import java.security.Principal;
-import java.util.List;
+import java.util.stream.Collectors;
 
 @Controller
 public class MovieController {
@@ -29,6 +31,10 @@ public class MovieController {
     private TheaterService theaterService;
     @Autowired
     UserDetailsService userDetailsService;
+    @Autowired
+    ShowTimeService showTimeService;
+    @Autowired
+    SeatService seatService;
     @GetMapping("/movies")
     public String showMovieList(Model model) {
         List<Movie> listMovies = service.listAll();
@@ -86,7 +92,6 @@ public class MovieController {
         model.addAttribute("user", userDetails);
         List<String> categories = service.getAllCategories();
         model.addAttribute("categories", categories);
-
         return "film-category";
     }
 
@@ -133,10 +138,14 @@ public class MovieController {
 
 
     @GetMapping("/movie-description/{movieId}/bookTheater/{theaterId}/userShowTime")
-    public String showShowTimeToUser(@PathVariable("movieId") Long movieId, @PathVariable("theaterId") Long theaterId, Model model, RedirectAttributes ra,Principal principal)
-            throws TheaterNotFoundException, MovieNotFoundException {
+    public String showShowTimeToUser(@PathVariable("movieId") Long movieId,
+                                     @PathVariable("theaterId") Long theaterId,
+                                     Model model,
+                                     Principal principal)
+            throws TheaterNotFoundException, MovieNotFoundException, ShowTimeNotFoundException {
         UserDetails userDetails = userDetailsService.loadUserByUsername(principal.getName());
         Movie movie = service.get(movieId);
+        model.addAttribute("user", userDetails);
         model.addAttribute("user", userDetails);
         Theater theater = theaterService.get(theaterId);
         model.addAttribute("movie", movie);
@@ -144,47 +153,82 @@ public class MovieController {
         return "showTimePage";
     }
 
-    @GetMapping("/movie-description/{movieId}/bookTheater/{theaterId}/userShowTime/bookSeat")
-    public String bookSeatFun(@PathVariable("movieId") Long movieId, @PathVariable("theaterId") Long theaterId, Model model, RedirectAttributes ra) {
+    @GetMapping("/movie-description/{movieId}/bookTheater/{theaterId}/userShowTime/{showtimeId}")
+    public String bookSeat(@PathVariable("movieId") Long movieId, @PathVariable("theaterId") Long theaterId,
+                              @PathVariable("showtimeId") Long showtimeId, Model model, RedirectAttributes ra) {
         try {
             Movie movie = service.get(movieId);
             Theater theater = theaterService.get(theaterId);
+            ShowTime showTime= showTimeService.get(showtimeId);
+            Auditorium auditorium = showTime.getAuditorium();
+            List<Seat> seats = auditorium.getSeats();
+            List<Seat> regulars = getSeatsType(seats,"REGULAR");
+            List<Seat> vip = getSeatsType(seats,"VIP");
+            List<Seat> vvip = getSeatsType(seats,"VVIP");
+
+
+            model.addAttribute("auditorium",auditorium);
+            model.addAttribute("regulars",regulars);
+            model.addAttribute("vips",vip);
+            model.addAttribute("vvips",vvip);
+            model.addAttribute("showtime", showTime);
             model.addAttribute("movie", movie);
             model.addAttribute("theater", theater);
             return "seatBooking";
         } catch (MovieNotFoundException | TheaterNotFoundException e) {
             ra.addFlashAttribute("message", e.getMessage());
             return "redirect:/movies";
+        } catch (ShowTimeNotFoundException e) {
+            throw new RuntimeException(e);
         }
     }
 
-    @GetMapping("/movie-description/{movieId}/bookTheater/{theaterId}/userShowTime/bookSeat/ticketSelection")
-    public String bookSeatFun(@PathVariable("movieId") Long movieId,
-                              @PathVariable("theaterId") Long theaterId,
-                              Model model) throws MovieNotFoundException, TheaterNotFoundException {
-
-            Movie movie = service.get(movieId);
-            Theater theater = theaterService.get(theaterId);
-            model.addAttribute("movie", movie);
-            model.addAttribute("theater", theater);
-            return "ticket-selection";
+    public List<Seat> getSeatsType(List<Seat> seats,String type){
+        List<Seat> result= new ArrayList<>();
+        for (Seat seat: seats ){
+            if (Objects.equals(seat.getType(), type)){
+                result.add(seat);
+            }
+        }
+        result.sort(Comparator.comparing(Seat::getNumber));
+        return result;
     }
-    @GetMapping("/movie-description/{movieId}/bookTheater/{theaterId}/userShowTime/bookSeat/ticketSelection/ticketConfirm")
+
+    @PostMapping("/movie-description/{movieId}/bookTheater/{theaterId}/userShowTime/{showtimeId}/confirmation")
     public String processTicketSelection(@PathVariable("movieId") Long movieId,
-                                         @PathVariable(value = "theaterID") Long theaterId ,
+                                         @PathVariable("theaterId") Long theaterId ,
                                          Model model,
-                                         @RequestParam("numTickets") int numTickets,
-                                         RedirectAttributes ra) {
+                                         @PathVariable("showtimeId") Long showtimeId,
+                                         @RequestParam(value = "seatIds") List<Long> seatIds) {
         try {
             Movie movie = service.get(movieId);
             Theater theater = theaterService.get(theaterId);
+            ShowTime showTime= showTimeService.get(showtimeId);
+            Auditorium auditorium = showTime.getAuditorium();
+            List<Seat> seats = auditorium.getSeats();
+            List<Seat> regulars = getSeatsType(seats,"REGULAR");
+            List<Seat> vip = getSeatsType(seats,"VIP");
+            List<Seat> vvip = getSeatsType(seats,"VVIP");
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+            String formattedDate = showTime.getShowDateTime().format(formatter);
+            model.addAttribute("showDate",formattedDate);
+            int hour = showTime.getShowDateTime().getHour();
+            int min= showTime.getShowDateTime().getMinute();
+            String formattedTime = hour + ":" + String.format("%02d", min); // %02d adds leading zeros
+            model.addAttribute("time",formattedTime);
+            List<Seat> selectedSeats = seatService.findAllById(seatIds);
+            model.addAttribute("selectedSeats",selectedSeats);
+            model.addAttribute("auditorium",auditorium);
+            model.addAttribute("regulars",regulars);
+            model.addAttribute("vips",vip);
+            model.addAttribute("vvips",vvip);
+            model.addAttribute("auditorium",auditorium);
+
             model.addAttribute("movie", movie);
             model.addAttribute("theater", theater);
-            double baseCost = movie.getBaseCost();
-            double totalCost = baseCost * numTickets;
             return "ticket-confirmation";
-        } catch (MovieNotFoundException e) {
-            ra.addFlashAttribute("message", e.getMessage());
+        } catch (MovieNotFoundException | ShowTimeNotFoundException e) {
+
             return "redirect:/movies";
         } catch (TheaterNotFoundException e) {
             throw new RuntimeException(e);

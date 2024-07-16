@@ -58,7 +58,7 @@ public class Movie {
     }
 
     public void setMovieName(String movieName) {
-        this.movieName = movieName;
+            this.movieName = movieName;
     }
 
     public String getGenre() {

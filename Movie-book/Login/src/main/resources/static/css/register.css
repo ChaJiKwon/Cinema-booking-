@@ -1,0 +1,18 @@
+.container {
+    max-width: 500px;
+    height: 500px;
+    margin-top: 70px;
+    border-radius: 7px;
+    box-shadow: 0 0 10px 10px #525151; /* Spread the shadow evenly */
+    background-color:white; /* Adjust the opacity as needed */
+    justify-content: center;
+    align-items: center;
+}
+.register-container{
+    padding-top: 13%;
+       
+}
+body{
+    background-image: url('https://maychieuphim.vn/files/assets/kich_thuoc_man_chieu_phim_gala.png');
+    background-size: cover;
+}

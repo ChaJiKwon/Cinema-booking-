@@ -3,10 +3,62 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
     <title>Ticket Confirmation</title>
+    <style>
+        .hidden-checkbox {
+            display: none;
+        }
+        .text{
+            margin-left: 47%;
+        }
+        .btn-green {
+            background-color: green;
+            border-color: green;
+            color: white;
+        }
+        .row {
+            display: flex;
+        }
+        .container {
+            display: flex;
+            justify-content: space-evenly;
+            align-items: center; /* Align items vertically */
+        }
+        img {
+            width: 325px;
+            height: 350px;
+        }
+        .seats {
+            display: flex;
+            flex-wrap: wrap; /* Wrap seats if they exceed container width */
+            align-items: center; /* Align items vertically */
+            gap: 10px; /* Add gap between seats */
+        }
+    </style>
 </head>
 <body>
-<h1>Ticket Confirmation</h1>
+    <h1 class="text">Your Invoice</h1>
+    <div class="container">
+        <div class="poster">
+            <img th:src="${movie.posterUrl}" alt="${movie.movieName}">
+        </div>
+        <div>
+            <p><strong>Movie:</strong> [[${movie.movieName}]]</p>
+            <p><strong>Theater:</strong> [[${theater.theaterName}]]</p>
+            <p><strong>Auditorium:</strong> [[${auditorium.name}]]</p>
+            <p><strong>Number of tickets:</strong> [[${selectedSeats.size()}]]</p>
+           
+            <div class="seats">
+                <!-- Render selected seats dynamically -->
+                <p><strong>Seats:</strong></p>
+                <p th:each="selected: ${selectedSeats}">
+                    [[${selected.type}]] [[${selected.number}]]
+                </p>
+            </div>
+            <p><strong>Date:</strong> [[${showDate}]]</p>
+            <p><strong>Time:</strong> [[${time}]]</p>
+        </div>
+    </div>
 </body>
-<p></p>
 </html>

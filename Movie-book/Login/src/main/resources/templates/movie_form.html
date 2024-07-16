@@ -4,78 +4,7 @@
     <meta charset="UTF-8">
     <title>Movie Form</title>
     <link rel="stylesheet" type="text/css" th:href="@{/webjars/bootstrap/css/bootstrap.min.css}" />
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: black    ;
-            color: white;
-            margin: 0;
-            padding: 0;
-        }
-        .container {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            margin-top: 5%;
-
-        }
-        .form-container {
-            border-style: solid;
-            width: 50%;
-            justify-content: center;
-            max-width: 500px; /* Added for responsiveness */
-            display: flex;
-            flex-direction: column; /* Align children vertically */
-            color: black;
-            background-color: white;
-            font-size: 15px;
-        }
-
-        .formHeader{
-            text-align: center;
-            background-color: #FBD0B8;
-            margin: 0;
-        }
-        h2,label{
-            font-family: Arial,sans-serif;;
-        }
-        .header {
-            background-color: #FF955A;
-            padding: 20px;
-            max-width: 100%;
-            align-items: center;
-            justify-content: space-between;
-            flex-direction: row;
-            display: flex;
-        }
-        .buttonsContainer{
-            justify-content: space-around;
-            display: flex;
-            margin-top: 15px;
-        }
-        .save, .cancel {
-            width: 70px;
-            height: 35px;
-            font-size: 13px;
-            line-height: 35px;
-            text-align: center;
-            color: white;
-            border-radius: 9px;
-            font-family: Verdana, Geneva, Tahoma, sans-serif;
-        }
-
-        .save {
-            background-color: #44A5FF;
-            border-color: #44A5FF;
-        }
-        .cancel {
-            background-color: #A2A2A2; /* Different background color */
-            border-color: #A2A2A2; /* Match the button color */
-        }
-        .save:hover, .cancel:hover {
-            opacity: 0.65;
-        }
-    </style>
+    <link rel="stylesheet" href="/css/movieForm.css">
 </head>
 <body>
 <div class="header">

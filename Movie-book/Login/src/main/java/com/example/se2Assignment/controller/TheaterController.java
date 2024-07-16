@@ -69,7 +69,6 @@ public class TheaterController {
             Theater theater = service.get(id);
             model.addAttribute("theater", theater);
             model.addAttribute("pageTitle", "Edit Theater (ID: " + id + ")");
-
             return "theater_form";
         } catch (TheaterNotFoundException e) {
             ra.addFlashAttribute("message", e.getMessage());

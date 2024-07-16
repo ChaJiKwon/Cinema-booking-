@@ -32,19 +32,14 @@
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
             transition: transform 0.2s;
         }
-        .showtime-list li:hover {
-            transform: scale(1.02);
-            box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
-        }
+        
         .showtime-list li a {
             text-decoration: none;
             color: #343a40;
             font-size: 18px;
             display: block;
         }
-        .showtime-list li a:hover {
-            color: #007bff;
-        }
+        
         .showtime-list span {
             font-weight: bold;
         }
@@ -87,11 +82,13 @@
             border-radius: 5px;
             transition: background-color 0.3s ease;
         }
+        .danger{
+            margin-top: 15px;
+        }
     </style>
 </head>
 <body>
     <div class="header">
-        <h1 class="text-white">Movies of [[${category}]] </h1>
         <h1 class="text-white" style="font-weight: bolder;">Welcome, [[${user.getFullname()}]]</h1>
         <span sec:authorize="isAuthenticated" class="nav-container">
             <a th:href="@{/logout} " class="navbar-link" >Logout</a>
@@ -106,16 +103,21 @@
             <a th:href="@{/showAllCategory}" class="navbar-link">Movies</a>
         </div>
     </div>
-<div class="container">
-    <h1>Choose one showTime</h1>
+    <div class="container">
+        <h1>Choose one showTime</h1>
+            <input type="date" required>
+            <ul class="showtime-list">
+                <h2>Showtime available:</h2>
+                <li th:each="auditorium: ${theater.getAuditoriums()}">          
+                    <div class="showtime-list" th:each="showTime: ${auditorium.getShowTimes()}" >                
+                        <a th:href="@{'/movie-description/'+ ${movie.id} + '/bookTheater/'+ ${theater.id} + '/userShowTime/' + ${showTime.id} } ">
+                            
+                            <button type="submit" class="btn btn-outline-primary btn-lg submit">[[${showTime.getShowDateTime().getHour()}]] : [[${showTime.getShowDateTime().getMinute()}]]</button>
+                        </a> 
+                    </div>          
+                </li>
+            </ul>
+    </div>        
 
-    <ul class="showtime-list" >
-        <li th:each="time: ${theater.getShowTimes()}">
-            <a th:href="@{'/movie-description/' + ${movie.id} + '/bookTheater/' + ${theater.id} + '/userShowTime/bookSeat'}">
-                Showtime available: <span th:text="${time.getShowDateTime()}"></span>
-            </a>
-        </li>
-    </ul>
-</div>
 </body>
 </html>

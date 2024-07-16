@@ -19,7 +19,7 @@ public class User {
     private String fullname;
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
-    private Set<Booking> bookings = new HashSet<>();
+    private Set<Ticket> tickets = new HashSet<>();
 
 
     public User() {
@@ -71,12 +71,12 @@ public class User {
     public void setFullname(String fullname) {
         this.fullname = fullname;
     }
-    public Set<Booking> getBookings() {
-        return bookings;
+    public Set<Ticket> getBookings() {
+        return tickets;
     }
 
-    public void setBookings(Set<Booking> bookings) {
-        this.bookings = bookings;
+    public void setBookings(Set<Ticket> tickets) {
+        this.tickets = tickets;
     }
 
 

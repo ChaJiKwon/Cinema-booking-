@@ -1,0 +1,49 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: black;
+    color: white;
+    margin: 0;
+    padding: 0;
+}
+
+.header {
+    background-color: #FF955A;
+    padding: 20px;
+    align-items: center;
+    justify-content: space-between;
+    flex-direction: row;
+    display: flex;
+
+}
+
+.header h1 {
+    margin: 0;
+}
+.container:hover {
+    opacity: 0.65; /* reduce opacity on hover */
+}
+.container {
+    margin: 20px auto;
+    padding: 20px;
+    background-color: black;
+    border-radius: 5px;
+    box-shadow: 0 0 10px #ccc;
+    flex-direction: row;
+    display: flex;
+    width: 50%;
+    height: 80%;
+    justify-content: center;
+}
+.outer-container{
+    flex-direction: row;
+    display: grid;
+}
+
+h2 {
+    color: white;
+    text-align: center;
+}
+a {
+    color: white; /* Set the color for all links */
+    text-decoration: none; /* Remove underline */
+}
