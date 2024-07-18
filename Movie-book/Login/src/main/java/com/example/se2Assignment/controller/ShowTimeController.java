@@ -31,6 +31,7 @@ public class ShowTimeController {
     }
     @GetMapping("/showTimes/new")
     public String showNewForm(Model model) {
+
         model.addAttribute("showTime", new ShowTime());
         List<Auditorium> auditoriums = auditoriumService.listAll(); // Fetch all theaters
         model.addAttribute("auditoriums", auditoriums);
@@ -39,6 +40,7 @@ public class ShowTimeController {
     }
     @PostMapping("/showTimes/save")
     public String saveShowTime(ShowTime showTime, RedirectAttributes ra) {
+
         showTimeService.save(showTime);
         ra.addFlashAttribute("message", "The showTime has been saved successfully.");
         return "redirect:/showTimes";
@@ -55,12 +57,12 @@ public class ShowTimeController {
         return "redirect:/showTimes";
     }
     @GetMapping("/showTimes/edit/{id}")
-    public String editShowTime(@PathVariable("id") Long id,Model model){
-        try{
-            ShowTime showTime = showTimeService.get(id);
-            List <Auditorium> auditoriums = auditoriumService.listAll();
-            model.addAttribute("auditoriums",auditoriums);
-            model.addAttribute("showTime",showTime);
+            public String editShowTime(@PathVariable("id") Long id,Model model){
+                try{
+                    ShowTime showTime = showTimeService.get(id);
+                    List <Auditorium> auditoriums = auditoriumService.listAll();
+                    model.addAttribute("auditoriums",auditoriums);
+                    model.addAttribute("showTime",showTime);
             return "showTime-form";
         }
         catch (ShowTimeNotFoundException e){

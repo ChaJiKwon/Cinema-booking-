@@ -20,7 +20,7 @@ public class MovieService {
     @Autowired
     private TheaterRepository theaterRepo;
     public List<Movie> listAll() {
-        return (List<Movie>) repo.findAll();
+        return repo.findAll();
     }
     public void save(Movie movie) {
         repo.save(movie);
@@ -36,7 +36,7 @@ public class MovieService {
     }
 
     @Transactional
-    public Set<Theater> getTheatersByMovieId(Long movieId) throws MovieNotFoundException {
+    public List<Theater> getTheatersByMovieId(Long movieId) throws MovieNotFoundException {
         // Fetch the movie from the database
         Movie movie = repo.findById(movieId).orElseThrow(() -> new MovieNotFoundException("Could not find movie with ID " + movieId));
 

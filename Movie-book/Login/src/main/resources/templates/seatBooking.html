@@ -12,7 +12,7 @@
             <h1 th:text="${auditorium.name}"></h1>
             <img src="https://via.placeholder.com/600x300?text=Theater+Screen" alt="Theater Screen" class="img-fluid">
         </div>
-        <form id="booking-form" th:action="@{/movie-description/{movieId}/bookTheater/{theaterId}/userShowTime/{showtimeId}/confirmation(movieId=${movie.id},theaterId=${theater.id},showtimeId=${showtime.id})}" method="post">        
+        <form id="booking-form" th:action="@{/movie-description/{movieId}/bookTheater/{theaterId}/userShowTime/{showtimeId}/date/seats/confirmation(movieId=${movie.id},theaterId=${theater.id},showtimeId=${showtime.id})}" method="post">        
             <div class="btn-group" role="group" aria-label="Basic checkbox toggle button group">
                 <div class="row" th:each="regular: ${regulars}">
                     <input type="checkbox" class="btn-check hidden-checkbox" th:id="'regular-check-' + ${regular.seat_id}" autocomplete="off" th:value="${regular.seat_id}" name="seatIds">

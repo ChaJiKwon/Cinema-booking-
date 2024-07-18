@@ -63,9 +63,9 @@ public class Ticket {
             String unit = matcher.group(2).toLowerCase();
 
             if (unit.startsWith("hour")) {
-                hours = value;
+                hours += value;
             } else if (unit.startsWith("minute")) {
-                minutes = value;
+                minutes += value;
             }
         }
 

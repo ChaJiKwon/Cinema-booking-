@@ -35,6 +35,11 @@
             align-items: center; /* Align items vertically */
             gap: 10px; /* Add gap between seats */
         }
+        .buttonContainer{
+            margin-left: 45%;
+            justify-content: space-between;
+            margin-top: 10%;
+        }
     </style>
 </head>
 <body>
@@ -48,7 +53,7 @@
             <p><strong>Theater:</strong> [[${theater.theaterName}]]</p>
             <p><strong>Auditorium:</strong> [[${auditorium.name}]]</p>
             <p><strong>Number of tickets:</strong> [[${selectedSeats.size()}]]</p>
-           
+            
             <div class="seats">
                 <!-- Render selected seats dynamically -->
                 <p><strong>Seats:</strong></p>
@@ -58,7 +63,15 @@
             </div>
             <p><strong>Date:</strong> [[${showDate}]]</p>
             <p><strong>Time:</strong> [[${time}]]</p>
+            <p><strong>Total price:</strong> [[${price}]]</p>
         </div>
+        
+    </div>
+    <div class="buttonContainer">
+        <button type="button" class="btn btn-primary">Confirm</button>
+        <a th:href="@{/user-page}">
+            <button type="button" class="btn btn-danger">Cancel</button>
+    </a>
     </div>
 </body>
 </html>

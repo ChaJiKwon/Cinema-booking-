@@ -1,6 +1,8 @@
 package com.example.se2Assignment.controller;
 
+import com.example.se2Assignment.model.Movie;
 import com.example.se2Assignment.model.Theater;
+import com.example.se2Assignment.service.MovieService;
 import com.example.se2Assignment.service.TheaterNotFoundException;
 import com.example.se2Assignment.service.TheaterService;
 import com.example.se2Assignment.service.UserService;
@@ -18,6 +20,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.security.Principal;
 import java.util.List;
+import java.util.Set;
 
 @Controller
 public class TheaterController {
@@ -25,10 +28,11 @@ public class TheaterController {
     private TheaterService service;
     @Autowired
     UserDetailsService userDetailsService;
+    @Autowired
+    MovieService movieService;
     @GetMapping("/theaters")
     public String showTheaterList(Model model,RedirectAttributes ra) {
         List<Theater> listTheaters = service.listAll();
-       
         model.addAttribute("listTheaters", listTheaters);
         return "Theaters";
     }
@@ -42,12 +46,15 @@ public class TheaterController {
     }
     @GetMapping("/theaters/new")
     public String showNewForm(Model model) {
+
         model.addAttribute("theater", new Theater());
         model.addAttribute("pageTitle", "Add New Theater");
         return "theater_form";
     }
     @PostMapping("/theaters/save")
     public String saveTheater(Theater theater, RedirectAttributes ra) {
+        List<Movie> listMovies = movieService.listAll();
+        theater.setMovies(listMovies);
         service.save(theater);
         ra.addFlashAttribute("message", "The theater has been saved successfully.");
         return "redirect:/theaters";

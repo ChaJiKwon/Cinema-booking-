@@ -27,7 +27,7 @@
                 <th>Rate</th>
                 <th>PosterUrl</th>
                 <th>description</th>
-                <th>base cost</th>
+      
             </tr>
             </thead>
             <tbody>
@@ -41,7 +41,7 @@
                     <td>[[${movie.rate}]]</td>
                     <td><img th:src="${movie.posterUrl}" alt="movie Image" style="width:100px; height:auto;"/></td>
                     <td>[[${movie.description}]]</td>
-                    <td>[[${'$' + movie.baseCost}]]</td>
+                    
                     <td style="flex-direction: row; display: flex; justify-content: space-between;">
                         <a class="h4 mr-3" th:href="@{'/movies/edit/' + ${movie.id}}">
                             <div class="edit">

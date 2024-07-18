@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import org.springframework.beans.factory.annotation.Value;
 
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -20,18 +21,19 @@ public class Movie {
     private String rate;
     @Column(columnDefinition = "LONGTEXT")
     private String posterUrl;
+    @Column(columnDefinition = "LONGTEXT")
     private String description;
-    private double baseCost;
+
     @ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(
             name = "movie_theater",
             joinColumns = @JoinColumn(name = "movie_id"),
             inverseJoinColumns = @JoinColumn(name = "theater_id")
     )
-    private Set<Theater> theaters = new HashSet<>();
+    private List<Theater> theaters ;
 
 
-    public Movie(String movieName, String genre, String cast, String duration, String rate, String posterUrl, String description, double baseCost) {
+    public Movie(String movieName, String genre, String cast, String duration, String rate, String posterUrl, String description) {
         this.movieName = movieName;
         this.genre = genre;
         this.cast = cast;
@@ -39,7 +41,7 @@ public class Movie {
         this.rate = rate;
         this.posterUrl = posterUrl;
         this.description = description;
-        this.baseCost = baseCost;
+
     }
     public Movie(){
 
@@ -108,20 +110,11 @@ public class Movie {
     public void setDescription(String description) {
         this.description = description;
     }
-
-    public double getBaseCost() {
-        return baseCost;
-    }
-
-    public void setBaseCost(double baseCost) {
-        this.baseCost = baseCost;
-    }
-
-    public Set<Theater> getTheaters() {
+    public List<Theater> getTheaters() {
         return theaters;
     }
 
-    public void setTheaters(Set<Theater> theaters) {
+    public void setTheaters(List<Theater> theaters) {
         this.theaters = theaters;
     }
 

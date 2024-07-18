@@ -1,0 +1,74 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: black;
+    color: #343a40;
+    margin: 0;
+    padding: 0;
+}
+.container {
+    margin-top: 50px;
+}
+h1 {
+    text-align: center;
+    margin-bottom: 30px;
+    color: #007bff;
+}
+.showtime-list {
+    list-style: none;
+    padding: 0;
+    justify-content: center;
+    
+}
+.showtime-list ul{
+    background-color: #ffffff;
+    margin-bottom: 15px;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    transition: transform 0.2s;
+    display: flex;
+    flex-direction: row;
+}
+
+.showtime-list li a {
+    text-decoration: none;
+    color: #343a40;
+    font-size: 18px;
+    display: inline-block;
+    margin-right: 10px; /* Có thể thay đổi khoảng cách giữa các button */
+}
+
+
+.container {
+    max-width: 80%;
+    margin: 20px auto;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+.header {
+    background-color: #FF955A;
+    padding: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.header h1 {
+    margin: 0;
+}
+.nav-container{
+    width: 7%;
+    height: 100%;
+}
+li{
+    display: flex;
+    flex-direction: row; 
+    gap: 20px      ;
+}
+ul{
+    display: flex;
+    flex-direction: row; 
+    gap: 20px      ;
+}

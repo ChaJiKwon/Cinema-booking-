@@ -21,7 +21,7 @@ public class Theater {
     private String description;
     private double plusCost;
     @ManyToMany(mappedBy = "theaters")
-    private Set<Movie> movies = new HashSet<>();
+    private List<Movie> movies ;
     @OneToMany(mappedBy = "theater")
     private List<Auditorium> auditoriums;
     // Default constructor
@@ -85,11 +85,11 @@ public class Theater {
     }
 
 
-    public Set<Movie> getMovies() {
+    public List<Movie> getMovies() {
         return movies;
     }
 
-    public void setMovies(Set<Movie> movies) {
+    public void setMovies(List<Movie> movies) {
         this.movies = movies;
     }
     public double getPlusCost() {
