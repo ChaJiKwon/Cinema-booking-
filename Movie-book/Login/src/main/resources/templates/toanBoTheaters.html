@@ -8,30 +8,38 @@
     <link rel="stylesheet" href="/css/all-theater.css">
 </head>
 <body>
-    <div class="header">
-        <h1 class="text-white"> Theaters</h1>
-        <h1 class="text-white" style="font-weight: bolder;">Welcome, [[${user.getFullname()}]]</h1>
-        <span sec:authorize="isAuthenticated" class="nav-container">
-            <a th:href="@{/logout} " class="navbar-link" >Logout</a>
-        </span>
-        <div class="nav-container">
+
+    <nav class="navbar sticky-top navbar-dark bg-dark">
+        <div class="container-fluid">
             <a th:href="@{/user-page}" class="navbar-link">Home</a>
+            <a th:href="@{/allTheaters}" class="navbar-link text-white mx-2">Theaters</a>
+            <a th:href="@{/showAllCategory}" class="navbar-link text-white mx-2">Movies</a>
+            <a th:href="@{/user-tickets}" class="navbar-link text-white mx-2">Tickets</a>
+            <span sec:authorize="isAuthenticated" class="nav-container">
+                <a th:href="@{/logout}" class="navbar-link text-white mx-2">Logout</a>
+            </span>
+                <div class="input-group ml-3" style="width: 300px;">
+                    <input id="searchInput" type="text" class="form-control" placeholder="Search...">
+                    <div class="input-group-append">
+                        <button class="btn btn-primary" type="button" onclick="search()">Search</button>
+                    </div>
+                </div>   
         </div>
-        <div class="nav-container">
-            <a th:href="@{/allTheaters}" class="navbar-link">Theaters</a>
-        </div>
-        <div class="nav-container" >
-            <a th:href="@{/showAllCategory}" class="navbar-link">Movies</a>
-        </div>
-    </div>
+    </nav>
 <div class="container">
-    <h2>All Theaters</h2>
+    <h1>All Theaters</h1>
     <div th:each="theater : ${listTheaters}" class="theater-card">
-        <div>
+        <div class="item">
             <a th:href="@{'/theaterDetail?id=' + ${theater.id}}">
                 <img th:src="${theater.imageUrl}" alt="Theater Image" class="theater-image">
             </a>
-            <h3 class="text-center" th:text="${theater.theaterName}"></h3>
+            <div class="text-center">
+               <ul>
+                    <h2  th:text="${theater.theaterName}"></h2>
+                    <p th:text="${theater.getAddress()}"></p>
+                    <p>Number of auditoriums:  [[${theater.getAuditoriums().size()}]]</p>
+               </ul>
+            </div>
         </div>
     </div>
 </div>
@@ -40,5 +48,14 @@
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<script>
+    function search() {
+        var keyword = document.getElementById("searchInput").value.trim();
+        if (keyword !== "") {
+            window.location.href = "http://localhost:8082/search?keyword=" + encodeURIComponent(keyword);
+        }
+    }
+</script>
+
 </body>
 </html>

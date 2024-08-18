@@ -17,9 +17,12 @@ import java.util.List;
 
 @Controller
 public class ShowTimeController {
-@Autowired  TheaterService theaterService;
-@Autowired ShowTimeService showTimeService;
-
+    @Autowired
+    TheaterService theaterService;
+    @Autowired
+    ShowTimeService showTimeService;
+    @Autowired
+    MovieService movieService;
     @Autowired
     AuditoriumService auditoriumService;
 
@@ -33,8 +36,10 @@ public class ShowTimeController {
     public String showNewForm(Model model) {
 
         model.addAttribute("showTime", new ShowTime());
+        List<Movie> movies = movieService.listAll();
         List<Auditorium> auditoriums = auditoriumService.listAll(); // Fetch all theaters
         model.addAttribute("auditoriums", auditoriums);
+        model.addAttribute("movies", movies);
         model.addAttribute("pageTitle", "Add New ShowTime");
         return "showTime-form";
     }
@@ -61,6 +66,8 @@ public class ShowTimeController {
                 try{
                     ShowTime showTime = showTimeService.get(id);
                     List <Auditorium> auditoriums = auditoriumService.listAll();
+                    List<Movie> movies = movieService.listAll();
+                    model.addAttribute("movies", movies);
                     model.addAttribute("auditoriums",auditoriums);
                     model.addAttribute("showTime",showTime);
             return "showTime-form";

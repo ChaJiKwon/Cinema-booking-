@@ -5,6 +5,14 @@
     <title>Seat Booking</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
     <link rel="stylesheet" href="/css/booking-seat.css">
+    <style>
+        .hidden-checkbox:disabled + label {
+            background-color: red; /* Light red color for label background */
+            color: white; /* Dark red color for label text */
+            cursor: not-allowed;
+        } 
+    </style>
+    
 </head>
 <body>
     <div class="container">
@@ -12,51 +20,52 @@
             <h1 th:text="${auditorium.name}"></h1>
             <img src="https://via.placeholder.com/600x300?text=Theater+Screen" alt="Theater Screen" class="img-fluid">
         </div>
-        <form id="booking-form" th:action="@{/movie-description/{movieId}/bookTheater/{theaterId}/userShowTime/{showtimeId}/date/seats/confirmation(movieId=${movie.id},theaterId=${theater.id},showtimeId=${showtime.id})}" method="post">        
+        <form id="booking-form" th:action="@{/movie-description/{movieId}/bookTheater/{theaterId}/userShowTime/{showtimeId}/date/seats/confirmation(movieId=${movie.id},theaterId=${theater.id},showtimeId=${showtime.id})}" method="post">
             <div class="btn-group" role="group" aria-label="Basic checkbox toggle button group">
                 <div class="row" th:each="regular: ${regulars}">
-                    <input type="checkbox" class="btn-check hidden-checkbox" th:id="'regular-check-' + ${regular.seat_id}" autocomplete="off" th:value="${regular.seat_id}" name="seatIds">
-                    <label class="btn btn-secondary" th:for="'regular-check-' + ${regular.seat_id}">[[${regular.type}]] [[${regular.number}]]</label>
+                    <input type="checkbox" class="btn-check hidden-checkbox" th:id="'regular-check-' + ${regular.seat_id}" autocomplete="off" th:value="${regular.seat_id}" name="seatIds" th:disabled="${!regular.getSeatStatus().get(seatKey)}">
+                    <label class="btn btn-secondary" th:for="'regular-check-' + ${regular.seat_id}" th:classappend="${!regular.isVacant} ? 'disabled-seat'">[[${regular.type}]] [[${regular.number}]]</label>
                 </div>
             </div>
             <div class="btn-group" role="group" aria-label="Basic checkbox toggle button group">
-                <div class="row" th:each="vip: ${vips}">
-                    <input type="checkbox" class="btn-check hidden-checkbox" th:id="'vip-check-' + ${vip.seat_id}" autocomplete="off" th:value="${vip.seat_id}  " name="seatIds">
-                    <label class="btn btn-primary" th:for="'vip-check-' + ${vip.seat_id}">[[${vip.type}]] [[${vip.number}]]</label>
+                <div class="row" th:each="vip: ${vips}">    
+                    <input type="checkbox" class="btn-check hidden-checkbox" th:id="'vip-check-' + ${vip.seat_id}" autocomplete="off" th:value="${vip.seat_id}" name="seatIds" th:disabled="${!vip.getSeatStatus().get(seatKey)}">
+                    <label class="btn btn-primary" th:for="'vip-check-' + ${vip.seat_id}" th:classappend="${!vip.isVacant} ? 'disabled-seat'">[[${vip.type}]] [[${vip.number}]]</label>
                 </div>
             </div>
             <div class="btn-group" role="group" aria-label="Basic checkbox toggle button group">
                 <div class="row" th:each="vvip: ${vvips}">
-                    <input type="checkbox" class="btn-check hidden-checkbox" th:id="'vvip-check-' + ${vvip.seat_id}" autocomplete="off" th:value="${vvip.seat_id}" name="seatIds">
-                    <label class="btn btn-warning" th:for="'vvip-check-' + ${vvip.seat_id}">[[${vvip.type}]] [[${vvip.number}]]</label>
+                    <input type="checkbox" class="btn-check hidden-checkbox" th:id="'vvip-check-' + ${vvip.seat_id}" autocomplete="off" th:value="${vvip.seat_id}" name="seatIds" th:disabled="${!vvip.getSeatStatus().get(seatKey)}">
+                    <label class="btn btn-warning" th:for="'vvip-check-' + ${vvip.seat_id}" th:classappend="${!vvip.isVacant} ? 'disabled-seat'">[[${vvip.type}]] [[${vvip.number}]]</label>
                 </div>
             </div>
             <button type="submit" class="btn btn-outline-danger btn-lg submit">Book</button>
         </form>
-        
     </div>
-    
+
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             var form = document.getElementById('booking-form');
             var submitButton = document.querySelector('.submit');
-    
+
             submitButton.addEventListener('click', function(event) {
                 var checkboxes = document.querySelectorAll('input[name="seatIds"]:checked');
                 if (checkboxes.length === 0) {
                     alert('Please select at least one seat to book.');
                     event.preventDefault(); // Prevent form submission
-                } 
+                }
             });
-    
+
             var labels = document.querySelectorAll('.btn-group label');
             labels.forEach(function(label) {
                 label.addEventListener('click', function() {
-                    label.classList.toggle('btn-green');
+                    var input = document.getElementById(label.getAttribute('for'));
+                    if (!input.disabled) {
+                        label.classList.toggle('btn-green');
+                    }
                 });
             });
         });
     </script>
-    
 </body>
 </html>

@@ -4,6 +4,8 @@ import jakarta.persistence.*;
 
 import java.time.Duration;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -17,16 +19,22 @@ public class Ticket {
     @JoinColumn(name = "showtime_id")
     private ShowTime showTime;
     private double price;
-    @ManyToOne
-    @JoinColumn(name = "seat_id")
-    private Seat seat;
+
+
+    @OneToMany(mappedBy = "ticket", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Seat> seats;
     @ManyToOne
     @JoinColumn(name = "user_id")
     private User user;
+
+
     // Default constructor
     @ManyToOne
     @JoinColumn(name="movie_id")
     private Movie movie;
+    @ManyToOne
+    @JoinColumn(name = "theater_id")
+    private Theater theater;
     private int numTicket;
     private LocalDateTime endTime;
     public Ticket() {}
@@ -117,11 +125,25 @@ public class Ticket {
         this.price = price;
     }
 
-    public Seat getSeat() {
-        return seat;
+
+    public List<Seat> getSeats() {
+        return seats;
     }
 
-    public void setSeat(Seat seat) {
-        this.seat = seat;
+    public void setSeats(List<Seat> seats) {
+        this.seats = seats;
     }
+
+    public Theater getTheater() {
+        return theater;
+    }
+
+    public void setTheater(Theater theater) {
+        this.theater = theater;
+    }
+
+    public void setEndTime(LocalDateTime endTime) {
+        this.endTime = endTime;
+    }
+
 }

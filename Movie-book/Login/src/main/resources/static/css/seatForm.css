@@ -1,0 +1,13 @@
+body{
+    background-color: black;
+}
+label{
+    color: white;
+}
+.buttonsContainer{
+    justify-content: space-evenly;
+    display: flex;
+}
+.row{
+    margin-bottom: 10%;
+}

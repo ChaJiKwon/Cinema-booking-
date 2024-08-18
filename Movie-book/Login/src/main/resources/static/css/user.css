@@ -9,12 +9,8 @@ a {
     color: white; /* Set the color for all links */
     text-decoration: none; /* Remove underline */
 }
-.header {
-    background-color: #FF955A;
-    padding: 20px;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
+a:hover{
+    text-decoration: none;
 }
 
 .header h1 {
@@ -25,9 +21,8 @@ a {
     max-width: 50%;
     margin: 20px auto;
     padding: 20px;
-    background-color: white;
+    background-color: black;
     border-radius: 5px;
-    box-shadow: 0 0 10px rgb(249, 249, 249);
 }
 
 h5 ,p{
@@ -55,22 +50,19 @@ p{
     margin-top: 20px;
     /* Add styles for the slider */
 }
- .carousel-item img {
-    max-height: 300px; /* Adjust the maximum height as needed */
-    width: auto;
-    margin: auto;
-}
+
 /* Adjust container width */
 #carouselExampleIndicators {
-    max-width: 600px; /* Adjust the maximum width as needed */
+    width: 100%; /* Adjust the maximum width as needed */
     margin: auto;
 }
+
 .nav-container{
     width: 7%;
     height: 100%;
 }
 .nav-container :hover{
-    background-color: #ff5900;
+    background-color: black;
     color: white;
     text-decoration: none;
 }
@@ -80,4 +72,68 @@ p{
     padding: 10px 20px;
     border-radius: 5px;
     transition: background-color 0.3s ease;
+}
+nav{
+    justify-content: space-around;
+    font-size: 18px;
+    background-color: black;
+}
+.carousel-item {
+    height: 400px; /* Adjust this value as needed */
+}
+.carousel-item img {
+    
+    height: 100%;
+    width: 100%;
+}
+.card-img-top {
+    height: 200px; /* Set a fixed height for images in cards */
+    object-fit: cover; /* Ensures the image covers the container */
+}
+.card-body {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    color: white;
+    background-color: black;
+    
+}
+body, html {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    overflow-x: hidden; /* Prevent horizontal overflow */
+}
+.navbar, .carousel, .container-fluid {
+    width: 100%;
+    margin: 0 auto; /* Center align the container */
+    padding: 0;
+    
+}
+.navbar{
+    padding: 1rem 1.5rem;
+    background-color: black;
+}
+
+.text-center{
+    margin-top: 5%;
+}
+.card{
+    width: 18rem;
+    margin-left: 10%; 
+    border-color: black;
+}
+.card-body h5, .card-body p {
+    color: white; /* Set text color to white */
+}
+.red-circle {
+    display: inline-block;
+    width: 30px;
+    height: 30px;
+    background-color: red;
+    border-radius: 50%;
+    margin-right: 10px; /* Space between the circle and the text */
+}
+footer{
+    background-color: black;
 }

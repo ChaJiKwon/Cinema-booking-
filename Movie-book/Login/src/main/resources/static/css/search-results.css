@@ -41,7 +41,7 @@ h2 {
 }
 
 .movie-poster {
-    max-width: 50%;
+    width: 325px;
     height: auto;
     border-radius: 5px;
 }
@@ -82,4 +82,7 @@ a {
     padding: 10px 20px;
     border-radius: 5px;
     transition: background-color 0.3s ease;
+}
+a:hover{
+    text-decoration: none;
 }

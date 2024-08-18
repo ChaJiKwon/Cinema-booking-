@@ -1,10 +1,10 @@
 package com.example.se2Assignment.controller;
 
-import com.example.se2Assignment.model.Auditorium;
-import com.example.se2Assignment.model.Seat;
-import com.example.se2Assignment.model.SeatType;
+import com.example.se2Assignment.model.*;
 import com.example.se2Assignment.service.AuditoriumService;
+import com.example.se2Assignment.service.SeatKeyService;
 import com.example.se2Assignment.service.SeatService;
+import com.example.se2Assignment.model.SeatKey;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -20,16 +20,29 @@ public class SeatController {
     private SeatService seatService;
     @Autowired
     private AuditoriumService auditoriumService;
+    @Autowired
+    private SeatKeyService seatKeyService;
 
     @GetMapping("/seats")
     public String showSeatDashboard(Model model){
         List<Seat> seats = seatService.listAllSeats();
         model.addAttribute("seats",seats);
+        for (Seat seat : seats) {
+            for (ShowTime showTime : seat.getAuditorium().getShowTimes()) {
+                SeatKey seatKey = new SeatKey(showTime.getId(), showTime.getShowDateTime().toLocalDate());
+                if (!seat.getSeatStatus().containsKey(seatKey)) {
+                    seat.getSeatStatus().put(seatKey,true);
+                }
+                seatKeyService.save(seatKey);
+                seatService.saveSeats(seat);
+            }
 
+        }
         return "seatsDashboard";
     }
     @PostMapping("/seats/save")
     public String saveSeatForm( Seat seat){
+
         seatService.saveSeats(seat);
         return "redirect:/seats";
     }

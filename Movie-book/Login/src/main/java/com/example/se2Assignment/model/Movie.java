@@ -31,7 +31,8 @@ public class Movie {
             inverseJoinColumns = @JoinColumn(name = "theater_id")
     )
     private List<Theater> theaters ;
-
+    @OneToMany(mappedBy = "movie")
+    private List<ShowTime> showTimes;
 
     public Movie(String movieName, String genre, String cast, String duration, String rate, String posterUrl, String description) {
         this.movieName = movieName;
@@ -41,7 +42,6 @@ public class Movie {
         this.rate = rate;
         this.posterUrl = posterUrl;
         this.description = description;
-
     }
     public Movie(){
 
@@ -118,4 +118,11 @@ public class Movie {
         this.theaters = theaters;
     }
 
+    public List<ShowTime> getShowTimes() {
+        return showTimes;
+    }
+
+    public void setShowTimes(List<ShowTime> showTimes) {
+        this.showTimes = showTimes;
+    }
 }

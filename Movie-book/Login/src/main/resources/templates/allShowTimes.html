@@ -123,6 +123,7 @@
             <th>ID</th>
             <th>Date Time</th>
             <th>Theater</th>
+            <th>Auditorium</th>
             <th>Actions</th>
         </tr>
         </thead>
@@ -132,6 +133,7 @@
                 <td>[[${showTime.id}]]</td>
                 <td>[[${showTime.showDateTime}]]</td>
                 <td>[[${showTime.auditorium.getTheater()}]]</td>
+                <td>[[${showTime.auditorium}]]</td>
                 <td style="display: flex; justify-content: space-between;">
                     <a class="h4 mr-3" th:href="@{'/showTimes/edit/' + ${showTime.id}}">
                         <div class="edit">

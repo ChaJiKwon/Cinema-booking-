@@ -13,21 +13,20 @@
     </script>
 </head>
 <body>
-    <div class="header">
-        <h1 class="text-white" style="font-weight: bolder;">Welcome, [[${user.getFullname()}]]</h1>
+    <nav class="navbar sticky-top navbar-dark bg-dark" >
+        <h2 class="text-white">Home</h2>
+        
         <span sec:authorize="isAuthenticated" class="nav-container">
-            <a th:href="@{/logout}" class="navbar-link">Logout</a>
+            <a th:href="@{/logout} " class="navbar-link" >Logout</a>
         </span>
         <div class="nav-container">
-            <a th:href="@{/user-page}" class="navbar-link">Home</a>
-        </div>
-        <div class="nav-container"> 
             <a th:href="@{/allTheaters}" class="navbar-link">Theaters</a>
         </div>
-        <div class="nav-container">
+        <div class="nav-container" >
             <a th:href="@{/showAllCategory}" class="navbar-link">Movies</a>
         </div>
-    </div>
+        <h2 class="text-white" style="font-weight: bolder;">Welcome, [[${user.getFullname()}]]</h2>
+    </nav>
     <div class="container">
         <h1>Select Date Time</h1>
         <form th:action="@{/movie-description/{movieId}/bookTheater/{theaterId}/userShowTime/{showtimeId}/date/seats (movieId=${movie.id},theaterId=${theater.id},showtimeId=${showtime.id})}" method="post">

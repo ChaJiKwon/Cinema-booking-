@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Ticket Detail Info</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/webjars/bootstrap/css/bootstrap.min.css}" />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/css/ticket-detail.css">
+</head>
+
+<body>
+    <div class="header">
+        
+        <h2>ADMIN</h2>
+        <a th:href="@{/admin-page}">HomePage</a>  
+    </div>
+    <div class="container">
+        <div class="form-container">
+            <div class="formHeader">
+                <h2>Ticket Info</h2>
+            </div>
+            <div class="info-container">
+                <p><strong>Ticket id:</strong> [[${ticket.id}]]</p>
+                <p><strong>User:</strong> [[${ticket.user.getFullname()}]]</p>
+                <p><strong>Movie:</strong> [[${ticket.getMovie().movieName}]]</p>
+                <p><strong>Theater:</strong> [[${ticket.getTheater().theaterName}]]</p>
+                <p><strong>Auditorium:</strong> [[${ticket.getShowTime().getAuditorium().name}]]</p>
+                <p><strong>Date:</strong> [[${date}]]</p>
+                <p><strong>Start Time:</strong> [[${time}]]</p>
+                <p><strong>Duration:</strong> [[${ticket.getMovie().duration}]]</p>
+                <p><strong>Estimated End Time:</strong> [[${endtime}]]</p>
+                <p><strong>Number of tickets:</strong> [[${ticket.numTicket}]]</p>
+                
+                <p><strong>Total :</strong> [[${ticket.price}]]</p>
+                <div class="seats">
+                    <!-- Render selected seats dynamically -->
+                    <p><strong>Seats:</strong></p>
+                    <p th:each="selected: ${ticket.getSeats()}">
+                        
+                        [[${selected.type}]] [[${selected.number}]] [[${selected.getSeatStatus().get(seatKey)}]] 
+                    </p>
+                </div>
+            </div>
+            <div class="buttonsContainer" >
+                
+                <button type="button" class="btn btn-success" onclick="cancelForm()">Back</button>
+            </div>
+        </div>
+
+    </div>
+    <script type="text/javascript">
+        function cancelForm() {
+            window.location = "[[@{/tickets}]]"; // Adjust the redirect location as needed
+        }
+    </script>
+</body>
+</html>

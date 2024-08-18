@@ -16,14 +16,14 @@ body {
 }
 
 h2 {
-    color: #007bff;
     text-align: center;
     margin-bottom: 20px;
 }
 
-a:hover{
+a:hover {
     text-decoration: none;
 }
+
 .category-list {
     list-style-type: none;
     padding: 0;
@@ -34,22 +34,27 @@ a:hover{
     padding: 10px;
     background-color: #f5f5f5;
     border-radius: 5px;
-}
-.category-image {
-    width: 330px;
-    height: 330px;
-    margin-right: 10px;
+    display: flex;
+    flex-direction: row;
 }
 
+.category-image {
+    width: 350px; /* Set a fixed width */
+    height: auto; /* Set a fixed height */
+   
+    margin-right: 10px;
+}
 
 .header h1 {
     margin: 0;
 }
-.nav-container{
+
+.nav-container {
     width: 7%;
     height: 100%;
 }
-.nav-container :hover{
+
+.nav-container:hover {
     background-color: darkgrey;
     color: white;
     text-decoration: none;
@@ -62,11 +67,30 @@ a:hover{
     border-radius: 5px;
     transition: background-color 0.3s ease;
 }
-nav{
+
+nav {
     font-size: 18px;
     justify-content: center;
 }
-.navbar{
+
+.navbar {
     padding: 1rem 1.5rem;
-    
+}
+
+.movie-info {
+    margin-left: 7%;
+}
+
+.user-seats-container {
+    display: flex;
+    flex-wrap: wrap; /* This will ensure the seats wrap to the next line if they overflow */
+    gap: 10px; /* Adjust the spacing between seats as needed */
+}
+
+.user-seats {
+    padding: 10px; /* Add padding if needed */
+    border: 1px solid #ccc; /* Add a border for better visibility */
+    border-radius: 5px; /* Optional: Add border radius for rounded corners */
+    background-color: #f8f9fa; /* Optional: Add background color */
+    margin-bottom: 10%;
 }

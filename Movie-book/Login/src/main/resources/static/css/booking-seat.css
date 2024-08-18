@@ -28,6 +28,11 @@
     border-color: green;
     color: white;
 }
+.disabled-seat {
+    background-color: #e9ecef; /* Light grey color for disabled seats */
+    cursor: not-allowed;
+    color: #e9ecef;
+}
 
 
 

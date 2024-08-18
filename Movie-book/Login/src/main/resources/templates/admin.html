@@ -7,17 +7,16 @@
     <link rel="stylesheet" href="/css/admin.css">
 </head>
 <body>
-<div class="header">
-    <h1>Dashboard</h1>
-    <div>
-        <h2>Welcome, [[${user.getFullname()}]]</h2>
-        <span sec:authorize="isAuthenticated" >
-        <a th:href="@{/logout}" class="logoutText">
-            Logout
-        </a>
+    <nav class="navbar sticky-top navbar-dark bg-dark">
+        <h1 class="text-white">Admin Menu</h1>
+        
+        <span sec:authorize="isAuthenticated" class="nav-container">
+            <a th:href="@{/logout} " class="navbar-link" >Logout</a>
         </span>
-    </div>
-</div>
+    
+        </div>
+        <h2 class="text-white" style="font-weight: bolder;">Welcome, [[${user.getFullname()}]]</h2>
+    </nav>
 
 <div class="outer-container">
     <!-- Image with a link -->
@@ -69,6 +68,16 @@
                 width="100%"
                 height="90%">
             <h2>Seats</h2>
+        </a>
+    </div>
+
+    <div class="container">
+        <a th:href="@{/tickets}">
+            <img src="https://images.twinkl.co.uk/tw1n/image/private/t_630_eco/image_repo/3e/84/T-T-2244-Cinema-Role-Play-Tickets_ver_1.jpg" 
+                alt=""
+                width="100%"
+                height="90%">
+            <h2>Tickets</h2>
         </a>
     </div>
 

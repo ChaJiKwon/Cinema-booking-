@@ -43,35 +43,67 @@
     </style>
 </head>
 <body>
-    <h1 class="text">Your Invoice</h1>
-    <div class="container">
-        <div class="poster">
-            <img th:src="${movie.posterUrl}" alt="${movie.movieName}">
-        </div>
-        <div>
-            <p><strong>Movie:</strong> [[${movie.movieName}]]</p>
-            <p><strong>Theater:</strong> [[${theater.theaterName}]]</p>
-            <p><strong>Auditorium:</strong> [[${auditorium.name}]]</p>
-            <p><strong>Number of tickets:</strong> [[${selectedSeats.size()}]]</p>
-            
-            <div class="seats">
-                <!-- Render selected seats dynamically -->
-                <p><strong>Seats:</strong></p>
-                <p th:each="selected: ${selectedSeats}">
-                    [[${selected.type}]] [[${selected.number}]]
-                </p>
+    <h1 class="text">Confirm your Choice</h1>
+    <h1>[[${check}]]</h1>  
+    <form id="booking-form" th:action="@{/movie-description/{movieId}/bookTheater/{theaterId}/userShowTime/{showtimeId}/date/seats/confirmation/finalize(movieId=${movie.id},theaterId=${theater.id},showtimeId=${showtime.id})}" method="post">
+        <div class="container">
+            <div class="poster">
+                <img th:src="${movie.posterUrl}" alt="${movie.movieName}">
             </div>
-            <p><strong>Date:</strong> [[${showDate}]]</p>
-            <p><strong>Time:</strong> [[${time}]]</p>
-            <p><strong>Total price:</strong> [[${price}]]</p>
+            <div>
+                <input type="hidden" th:value="${theater.id}">
+                <p><strong>Theater:</strong> [[${theater.theaterName}]]</p>
+                <input type="hidden" th:value="${auditorium.auditorium_id}">
+                <p><strong>Auditorium:</strong> [[${auditorium.name}]]</p>
+                
+                <p><strong>Number of tickets:</strong> [[${selectedSeats.size()}]]</p>
+                
+                <div class="seats">
+                    <!-- Render selected seats dynamically -->
+                    <p><strong>Seats:</strong></p>
+                    <p th:each="selected: ${selectedSeats}">
+                        <input type="hidden" th:value="${selected.seat_id}" name="seatIds"/>
+                        [[${selected.type}]] [[${selected.number}]]
+                    </p>
+                </div>
+                <p><strong>Date:</strong> [[${showDate}]]</p>
+                <p><strong>Time:</strong> [[${time}]]</p>
+                
+                <input type="hidden" th:value="${showtime.id}">
+                <input type="hidden" th:value="${price}"  name="price">
+                <p><strong>Total price:</strong> [[${price}]]</p>
+                
+            </div>
+            
         </div>
-        
-    </div>
-    <div class="buttonContainer">
-        <button type="button" class="btn btn-primary">Confirm</button>
-        <a th:href="@{/user-page}">
-            <button type="button" class="btn btn-danger">Cancel</button>
-    </a>
-    </div>
+        <div class="buttonContainer">
+            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">Agree and Continue</button>
+            
+            <a th:href="@{/user-page}">
+                <button type="button" class="btn btn-danger">Cancel</button>
+            </a>
+        </div>
+        <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title" id="exampleModalLabel">Confirm your Ticket</h5>
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                </div>
+                <div class="modal-body">
+                    <p>Your ticket will be created</p>
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-secondary" data-dismiss="modal">Dismiss</button>
+                  <button type="submit" class="btn btn-primary">Confirm</button>
+                </div>
+              </div>
+            </div>
+    </form>
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
 </body>
 </html>

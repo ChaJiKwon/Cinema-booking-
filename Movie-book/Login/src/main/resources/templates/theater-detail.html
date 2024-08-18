@@ -29,9 +29,15 @@
             <h3 th:text="${theater.theaterName}"></h3>
             <p><strong>Address:</strong> <span th:text="${theater.address}"></span></p>
             <p><strong>Description:</strong> <span th:text="${theater.description}"></span></p>
-            <p><strong>A-Section Seats:</strong> <span th:text="${theater.a_section}"></span></p>
-            <p><strong>B-Section Seats:</strong> <span th:text="${theater.b_section}"></span></p>
-            <p><strong>VIP-Section Seats:</strong> <span th:text="${theater.vip_section}"></span></p>
+            <p>
+                <strong>Auditoriums:</strong>
+                <ul>
+                    <li th:each="auditorium : ${theater.auditoriums}">
+                        
+                        [[${auditorium.name}]]
+                    </li>
+                </ul>
+            </p>
             
         </div>
 

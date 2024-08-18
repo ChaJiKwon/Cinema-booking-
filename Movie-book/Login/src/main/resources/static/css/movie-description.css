@@ -73,7 +73,10 @@ img {
     height: 100%;
 }
 .nav-container :hover{
-    background-color: #ff5900;
+    background-color: darkgrey;
     color: white;
+    text-decoration: none;
+}
+a:hover{
     text-decoration: none;
 }

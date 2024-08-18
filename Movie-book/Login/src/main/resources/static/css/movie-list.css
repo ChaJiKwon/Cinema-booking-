@@ -10,17 +10,14 @@ body {
     max-width: 80%;
     margin: 20px auto;
     padding: 20px;
-    background-color: #fff;
     border-radius: 5px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
-
 h2 {
     color: #007bff;
     text-align: center;
     margin-bottom: 20px;
 }
-
 .movie-list {
     list-style-type: none;
     padding: 0;
@@ -43,14 +40,6 @@ h2 {
 .detail-container{
     margin-left: 7%;
 }
-.header {
-    background-color: #FF955A;
-    padding: 20px;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-}
-
 .header h1 {
     margin: 0;
 }
@@ -59,7 +48,7 @@ h2 {
     height: 100%;
 }
 .nav-container :hover{
-    background-color: #ff5900;
+    background-color: darkgrey;
     color: white;
     text-decoration: none;
 }

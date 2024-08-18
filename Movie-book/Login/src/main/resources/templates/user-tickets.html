@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Tickets</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="/css/user-tickets.css">
+</head>
+<body>
+    <nav class="navbar sticky-top navbar-dark bg-dark">
+        <div class="container-fluid">
+            <a th:href="@{/user-page}" class="navbar-link">Home</a>
+            <a th:href="@{/allTheaters}" class="navbar-link text-white mx-2">Theaters</a>
+            <a th:href="@{/showAllCategory}" class="navbar-link text-white mx-2">Movies</a>
+            <span sec:authorize="isAuthenticated" class="nav-container">
+                <a th:href="@{/logout}" class="navbar-link text-white mx-2">Logout</a>
+            </span>
+        </div>
+    </nav>
+    <div class="container">
+        <h2>All Tickets</h2>
+        <ul class="category-list">
+            <li th:each="ticket, iterStat  : ${bookedTicket}" class="category-item">
+                <img class="category-image" th:src="${ticket.getMovie().getPosterUrl()}" alt="Category Image">
+                <div class="movie-info">
+                    <h3><strong>[[${ticket.getMovie().getMovieName()}]]</strong></h3>
+                    <p>[[${ticket.getTheater().getTheaterName()}]]</p>
+                    <p>[[${ticket.getTheater().getAddress()}]]</p>
+                    <p>[[${ticket.getEndTime().format(formatter)}]]</p>
+                    <p>[[${showtimes[iterStat.index]}]] ~  [[${endtimes[iterStat.index]}]]</p>
+                    <p>[[${ticket.getMovie().getDuration()}]]</p>
+                    <p>[[${ticket.getShowTime().getAuditorium().getName()}]]</p>
+                    <div class="user-seats-container">
+                        <div th:each="seat : ${ticket.getSeats()}" class="user-seats">
+                            [[${seat.type}]] [[${seat.number}]] 
+                        </div>
+                    </div>
+                    <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#exampleModal">Cancel</button>
+                    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                        <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="exampleModalLabel">Are you sure?</h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body">
+                                    <p>Your ticket will be canceled</p>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Dismiss</button>
+                                    <a th:href="@{'/user-tickets/cancel/' + ${ticket.getId()}}">
+                                        <button type="button" class="btn btn-danger">Confirm</button>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </li>
+        </ul>
+    </div>
+
+    <div class="modal fade" id="successModal" tabindex="-1" role="dialog" aria-labelledby="successModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="successModalLabel">Success!</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <p>Successfully canceled your ticket.</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" data-dismiss="modal">OK</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bootstrap JS and jQuery (required for Bootstrap's JS plugins) -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            // Check if the URL contains the query parameter 'canceled'
+            if (window.location.search.includes('canceled=true')) {
+                $('#successModal').modal('show');
+            }
+        });
+    </script>
+</body>
+</html>

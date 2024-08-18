@@ -20,6 +20,10 @@ public class ShowTime {
     private Theater theater;
     @OneToMany(mappedBy = "showTime")
     private List<Ticket> ticket;
+    @ManyToOne
+    @JoinColumn(name = "movie_id")
+    private Movie movie;
+
 
     public ShowTime() {}
     public ShowTime(LocalDateTime showDateTime, Theater theater) {
@@ -64,5 +68,13 @@ public class ShowTime {
 
     public void setTheater(Theater theater) {
         this.theater = theater;
+    }
+
+    public Movie getMovie() {
+        return movie;
+    }
+
+    public void setMovie(Movie movie) {
+        this.movie = movie;
     }
 }

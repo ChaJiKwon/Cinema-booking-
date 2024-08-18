@@ -16,6 +16,7 @@ public class SeatService {
     public List<Seat> listAllSeats(){
         return seatRepo.findAll();
     }
+
     public void saveSeats(Seat seat){
         seatRepo.save(seat);
     }

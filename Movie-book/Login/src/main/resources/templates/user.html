@@ -7,100 +7,106 @@
     <!-- Bootstrap CSS -->
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" integrity="sha512-iBBXm8fW90+nuLcSKlbmrPcLa0OT92xO1BIsZ+ywDWZCvqsWgccV3gFoRBv0z+8dLJgyAHIhR35VZc2oM/gI1w==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-    <!-- Bootstrap JS and jQuery (required for Bootstrap's JS plugins) -->
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     <link rel="stylesheet" href="/css/user.css">
-    
+    <style>
+        
+    </style>
 </head>
 <body>
-<div class="header">
-    <h1 class="text-white">HOME</h1>
-    <h1 class="text-white" style="font-weight: bolder;">Welcome, [[${user.getFullname()}]]</h1>
-    <span sec:authorize="isAuthenticated" class="nav-container">
-        <a th:href="@{/logout} " class="navbar-link" >Logout</a>
-    </span>
-    <div class="nav-container">
-        <a th:href="@{/allTheaters}" class="navbar-link">Theaters</a>
-    </div>
-    <div class="nav-container" >
-        <a th:href="@{/showAllCategory}" class="navbar-link">Movies</a>
-    </div>
-</div>
-<div class="container">
-
-    <div class="row justify-content-center">
-        <div class="col-md-6">
-            <div class="input-group mb-3">
+    
+<nav class="navbar sticky-top navbar-dark bg-dark">
+    <div class="container-fluid">
+        
+        <a th:href="@{/allTheaters}" class="navbar-link text-white mx-2">Theaters</a>
+        <a th:href="@{/showAllCategory}" class="navbar-link text-white mx-2">Movies</a>
+        <a th:href="@{/user-tickets}" class="navbar-link text-white mx-2">Tickets</a>
+        <span sec:authorize="isAuthenticated" class="nav-container">
+            <a th:href="@{/logout}" class="navbar-link text-white mx-2">Logout</a>
+        </span>
+            <div class="input-group ml-3" style="width: 300px;">
                 <input id="searchInput" type="text" class="form-control" placeholder="Search...">
                 <div class="input-group-append">
                     <button class="btn btn-primary" type="button" onclick="search()">Search</button>
                 </div>
             </div>
+            <h2 class="text-white ml-4" style="font-weight: bolder;">Welcome, [[${user.getFullname()}]]</h2>
+     
+    </div>
+</nav>
+
+<div class="container-fluid"> <!-- Full-width container -->
+    <div class="browseBody">
+        <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
+            <!-- Carousel Indicators -->
+            <ol class="carousel-indicators">
+                <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
+                <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
+                <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
+                <li data-target="#carouselExampleIndicators" data-slide-to="3"></li>
+            </ol>
+
+            <!-- Carousel Inner -->
+            <div class="carousel-inner">
+                <!-- Carousel Items -->
+                <div class="carousel-item active">
+                    <img src="https://repository-images.githubusercontent.com/275336521/20d38e00-6634-11eb-9d1f-6a5232d0f84f" alt="First slide">
+                    <h5 class="carousel-caption">Online Cinema System</h5>
+                </div>
+                <div class="carousel-item" th:each="movie : ${movies}">
+                    <a th:href="@{'/movie-description/' + ${movie.id}}">
+                        <img th:src="${movie.posterUrl}" alt="Movie Image">
+                    </a>
+                </div>
+            </div>
+
+            <!-- Carousel Controls -->
+            <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="sr-only">Previous</span>
+            </a>
+            <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="sr-only">Next</span>
+            </a>
         </div>
     </div>
+</div>
 
 
-
-    <div class="browseBody"  >
-        <div class="slide">
-            <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
-                <!-- Carousel Indicators -->
-                <ol class="carousel-indicators" >
-                    <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
-                    <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
-                    <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
-                    <li data-target="#carouselExampleIndicators" data-slide-to="3"></li>
-                </ol>
-
-                <!-- Carousel Inner -->
-                <div class="carousel-inner">
-                    <!-- Carousel Items -->
-                    <div class="carousel-item active" >
-                        <img class="d-block w-100" src="https://repository-images.githubusercontent.com/275336521/20d38e00-6634-11eb-9d1f-6a5232d0f84f" alt="First slide">
-                        <h5>Online Cinema System</h5>
-                        <p>More Movies on the right</p>
-
+<div class="text-center">
+    <h1><span class="red-circle"></span>Now Showing</h1>
+    <div class="row row-cols-auto">
+        <div class="col" th:each="movie : ${movies}">
+            <div class="card">
+                <a th:href="@{'/movie-description/' + ${movie.id}}">
+                    <img th:src="${movie.posterUrl}" alt="Movie Image" class="card-img-top">
+                    <div class="card-body">
+                        <h5 th:text="${movie.movieName}"></h5>
+                        <p th:text="${movie.genre}"></p>
+                        <p th:text="${movie.duration}"></p>
                     </div>
-                    <div class="carousel-item" th:each="movie : ${movies}">
-                        <a th:href="@{'/movie-description/' + ${movie.id}}"  >
-                            <!-- Muốn display thêm gì thì add thêm cái đấy -->
-                            <img th:src="${movie.posterUrl}" alt="Movie Image" class="d-block w-100">
-                            <h5 th:text="${movie.movieName}"></h5>
-                            <p th:text="${movie.genre}"></p>
-
-                        </a>
-                    </div>
-                </div>
-                <!-- Carousel Controls -->
-                <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
-                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                    <span class="sr-only">Previous</span>
-                </a>
-                <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
-                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                    <span class="sr-only">Next</span>
                 </a>
             </div>
         </div>
-
-
     </div>
-
-    <!-- Bootstrap JS and jQuery (required for Bootstrap's JS plugins) -->
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-
-    <script>
-        function search() {
-            var keyword = document.getElementById("searchInput").value.trim();
-            if (keyword !== "") {
-                window.location.href = "http://localhost:8082/search?keyword=" + encodeURIComponent(keyword);
-            }
-        }
-    </script>
 </div>
+<footer class="footer mt-auto py-3 bg-dark">
+    <div>
+      <span class="text-muted">@Hanoi University.</span>
+    </div>
+  </footer>
+<!-- Include jQuery and Bootstrap JS -->
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<script>
+    function search() {
+        var keyword = document.getElementById("searchInput").value.trim();
+        if (keyword !== "") {
+            window.location.href = "http://localhost:8082/search?keyword=" + encodeURIComponent(keyword);
+        }
+    }
+</script>
+
 </body>
 </html>

@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+    <title>Your Ticket</title>
+    <style>
+        .hidden-checkbox {
+            display: none;
+        }
+        .text{
+            text-align: center;
+        }
+        .btn-green {
+            background-color: green;
+            border-color: green;
+            color: white;
+        }
+        .row {
+            display: flex;
+        }
+        .container {
+            display: flex;
+            justify-content: space-evenly;
+            align-items: stretch; /* Stretch items to have equal height */
+            margin-top: 20px;
+        }
+        img {
+            width: 400px;
+            height: auto; /* Make image take the full height */
+            ; /* Ensure image covers the entire space without distortion */
+        }
+        .seats {
+            display: flex;
+            flex-wrap: wrap; /* Wrap seats if they exceed container width */
+            align-items: center; /* Align items vertically */
+            gap: 10px; /* Add gap between seats */
+        }
+        .buttonContainer {
+            text-align: center;
+            margin-top: 20px;
+        }
+        .category-image {
+            max-width: 325px;
+            height: auto;
+            margin-right: 10px;
+        }
+        .poster {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            padding: 20px;
+            
+        }
+    </style>
+</head>
+<body>
+    <h1 class="text">BOOKING SUCCESS !</h1>
+    <div class="container">
+        <img th:src="${movie.posterUrl}" alt="${movie.movieName}" class="category-image">
+        <div class="poster">
+            <p><strong>Client name:</strong> [[${ticket.getUser().fullname}]]</p>
+            <p><strong>Movie:</strong> [[${ticket.getMovie().movieName}]]</p>
+            <p><strong>Theater:</strong> [[${ticket.getTheater().theaterName}]]</p>
+            <p><strong>Auditorium:</strong> [[${ticket.getShowTime().getAuditorium().name}]]</p>
+            <p><strong>Number of tickets:</strong> [[${ticket.numTicket}]]</p>
+            <div class="seats">
+                <p><strong>Seats:</strong></p>
+                <p th:each="selected: ${ticket.getSeats()}">
+                    [[${selected.type}]] [[${selected.number}]]
+                </p>
+            </div>
+            <p><strong>Date:</strong> [[${showDate}]]</p>
+            <p><strong>Start Time:</strong> [[${time}]]</p>
+            <p><strong>Duration:</strong> [[${ticket.getMovie().duration}]]</p>
+            <p><strong>Estimated End Time:</strong> [[${endtime}]]</p>
+            <p><strong>Total :</strong> [[${ticket.price}]]</p>
+        </div>
+    </div>
+    <div class="buttonContainer">
+        <a th:href="@{/user-page}">
+            <button type="button" class="btn btn-danger">Home</button>
+        </a>
+    </div>
+</body>
+</html>
