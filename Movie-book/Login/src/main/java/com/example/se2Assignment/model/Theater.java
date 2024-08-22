@@ -29,8 +29,7 @@ public class Theater {
     }
 
     // Parameterized constructor
-    public Theater(String theaterName, String address, String imageUrl, String description,double plusCost
-    ) {
+    public Theater(String theaterName, String address, String imageUrl, String description,double plusCost) {
         this.theaterName = theaterName;
         this.address = address;
         this.imageUrl = imageUrl;

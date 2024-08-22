@@ -5,7 +5,7 @@ import com.example.se2Assignment.model.*;
 import com.example.se2Assignment.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UserDetailsService;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -87,7 +87,7 @@ public class UserController {
                 SeatKey seatKey = new SeatKey(ticket.getShowTime().getId(), ticket.getShowTime().getShowDateTime().toLocalDate());
                 if (!seat.getSeatStatus().get(seatKey)) {
                     allSeatsbooked = true;
-                    break; // Exit the loop if any seat is booked
+                    break; //
                 }
             }
             if (allSeatsbooked) {
@@ -102,7 +102,6 @@ public class UserController {
                 showTimes.add(formattedTime);
                 endTimes.add(formattedEndTime);
             }
-
         }
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
         model.addAttribute("formatter",formatter);

@@ -25,6 +25,7 @@
                 <img class="category-image" th:src="${ticket.getMovie().getPosterUrl()}" alt="Category Image">
                 <div class="movie-info">
                     <h3><strong>[[${ticket.getMovie().getMovieName()}]]</strong></h3>
+                    <p> Id : [[${ticket.getId()}]]</p>
                     <p>[[${ticket.getTheater().getTheaterName()}]]</p>
                     <p>[[${ticket.getTheater().getAddress()}]]</p>
                     <p>[[${ticket.getEndTime().format(formatter)}]]</p>
@@ -36,18 +37,20 @@
                             [[${seat.type}]] [[${seat.number}]] 
                         </div>
                     </div>
-                    <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#exampleModal">Cancel</button>
-                    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <button type="button" class="btn btn-danger" data-toggle="modal" th:data-target="'#modal-' + ${ticket.getId()}">Cancel</button>
+
+                    <div class="modal fade" th:id="'modal-' + ${ticket.getId()}" tabindex="-1" role="dialog" aria-labelledby="modalLabel-' + ${ticket.getId()}" aria-hidden="true">
                         <div class="modal-dialog" role="document">
                             <div class="modal-content">
                                 <div class="modal-header">
-                                    <h5 class="modal-title" id="exampleModalLabel">Are you sure?</h5>
+                                    <h5 class="modal-title" th:id="'modalLabel-' + ${ticket.getId()}">Are you sure?</h5>
                                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                         <span aria-hidden="true">&times;</span>
                                     </button>
                                 </div>
                                 <div class="modal-body">
                                     <p>Your ticket will be canceled</p>
+                                    <p>Ticket id : [[${ticket.getId()}]] </p>
                                 </div>
                                 <div class="modal-footer">
                                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Dismiss</button>
@@ -58,6 +61,7 @@
                             </div>
                         </div>
                     </div>
+
                 </div>
             </li>
         </ul>

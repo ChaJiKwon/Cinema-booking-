@@ -1,9 +1,4 @@
 package com.example.se2Assignment.model;
-
-
-
-
-
 import jakarta.persistence.*;
 
 import java.time.LocalDate;

@@ -28,8 +28,8 @@ public class SecurityConfig {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception{
 
         http.csrf(c -> c.disable())
-                .authorizeHttpRequests(request -> request.requestMatchers("/admin-page")
-                        .hasAuthority("ADMIN").requestMatchers("/user-page").hasAuthority("USER")
+                .authorizeHttpRequests(request -> request.requestMatchers("/admin-page").hasAuthority("ADMIN").//only admin role can enter
+                        requestMatchers("/user-page").hasAuthority("USER") // only user can enter
                         .requestMatchers("/registration", "/css/**").permitAll()
                         .anyRequest().authenticated())
                 .formLogin(form -> form.loginPage("/login").loginProcessingUrl("/login")

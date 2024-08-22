@@ -106,16 +106,12 @@ public class MovieController {
     @GetMapping("/showAllCategory/{category}")
     public String showMoviesByCategory(@PathVariable("category") String category, Model model,Principal principal) {
         List<Movie> movies = movieService.findByGenre(category);
-
         model.addAttribute("category", category);
         model.addAttribute("movies", movies);
         UserDetails userDetails = userDetailsService.loadUserByUsername(principal.getName());
         model.addAttribute("user", userDetails);
-
-
         return "movie-list";
     }
-
     @GetMapping("/movie-description/{id}")
     public String showMovieDescription(@PathVariable("id") Long id, Model model,
                                        RedirectAttributes ra, Principal principal) {
@@ -147,7 +143,6 @@ public class MovieController {
         }
     }
 
-
     @GetMapping("/movie-description/{movieId}/bookTheater/{theaterId}/userShowTime")
     public String showShowTimeToUser(@PathVariable("movieId") Long movieId,
                                      @PathVariable("theaterId") Long theaterId,
@@ -155,10 +150,21 @@ public class MovieController {
                                      Principal principal)
             throws TheaterNotFoundException, MovieNotFoundException, ShowTimeNotFoundException {
         UserDetails userDetails = userDetailsService.loadUserByUsername(principal.getName());
+
         Movie movie = movieService.get(movieId);
         model.addAttribute("user", userDetails);
         model.addAttribute("user", userDetails);
         Theater theater = theaterService.get(theaterId);
+        //get showtime of the movies in selected theater
+        List<ShowTime> showtimes = new ArrayList<>();
+        for (Auditorium auditorium : theater.getAuditoriums()){
+            for (ShowTime showTime: auditorium.getShowTimes()){
+                if (showTime.getMovie()==movie){
+                    showtimes.add(showTime);
+                }
+            }
+        }
+        model.addAttribute("showtimes",showtimes);
         model.addAttribute("movie", movie);
         model.addAttribute("theater", theater);
         return "showTimePage";
@@ -179,7 +185,6 @@ public class MovieController {
         model.addAttribute("movie", movie);
         model.addAttribute("theater", theater);
         model.addAttribute("showtime", showTime);
-
 
         return "SelectDateTime";
     }

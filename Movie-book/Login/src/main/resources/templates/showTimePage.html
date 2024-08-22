@@ -21,16 +21,18 @@
                 <a th:href="@{/showAllCategory}" class="navbar-link">Movies</a>
             </div>
             <h2 class="text-white" style="font-weight: bolder;">Welcome, [[${user.getFullname()}]]</h2>
+            
         </nav>
           
         <div class="container">                
             <h1>Showtime available:</h1>
             <ul class="showtime-list">
                     <li >          
-                        <div th:each="showTime: ${movie.getShowTimes()}"  >                
+                        <div th:each="showTime: ${showtimes}"  >                
                             <a th:href="@{'/movie-description/'+ ${movie.id} + '/bookTheater/'+ ${theater.id} + '/userShowTime/' + ${showTime.id} + '/date'  } " class="showtimes">
                                 <button type="submit" class="btn btn-outline-primary btn-lg submit">
                                     [[${showTime.getShowDateTime().getHour()}]] : [[${#numbers.formatDecimal(showTime.getShowDateTime().getMinute(), 2, 0)}]]
+                                    <p>[[${showTime.getAuditorium().getTheater()}]]</p>
                                 </button>
                             </a> 
                         </div>          
